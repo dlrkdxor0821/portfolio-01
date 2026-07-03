@@ -1,0 +1,5 @@
+# 프로젝트 GitHub Repository 링크
+
+핑더가든 (pingdergarten): https://github.com/addinedu-physicalai-1st/physical-ai-repo-2
+쑈삥끼 (ShopPinkki):       https://github.com/addinedu-physicalai-1st/ros-repo-2
+ABA · 리비 (Arte):        https://github.com/addinedu-roscamp-13th/roscamp-repo-2

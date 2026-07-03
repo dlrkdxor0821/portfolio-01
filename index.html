@@ -1,0 +1,609 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{
+  --sans:'Noto Sans CJK KR','Noto Sans KR',sans-serif;
+  --serif:'Noto Serif CJK KR',serif;
+  --mono:'D2Coding','Consolas','Menlo',monospace;
+  --ink:#18181B; --sub:#52525B; --faint:#8A8A93;
+  --line:#E4E4E7; --line2:#F1F1F3;
+  --accent:#0E7C6B; --accent-bg:#ECF6F3;
+  --gold:#B8860B;
+  --bg:#FFFFFF; --panel:#FAFAFA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@page{size:A4 landscape;margin:0;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+.slide{width:297mm;height:210mm;position:relative;overflow:hidden;background:var(--bg);
+  page-break-after:always;display:flex;flex-direction:column;padding:20mm 24mm;}
+.slide:last-child{page-break-after:auto;}
+.kr{word-break:keep-all;}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:5mm;min-height:0;}
+.pgname{position:absolute;bottom:9mm;left:24mm;font-size:8px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;}
+.pg{position:absolute;bottom:9mm;right:24mm;font-size:8.5px;color:var(--faint);letter-spacing:.1em;}
+em{font-style:normal;color:var(--accent);font-weight:700;}
+.lbl{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:3mm;}
+.hd{display:flex;align-items:baseline;gap:13px;border-bottom:1px solid var(--line);padding-bottom:4mm;margin-bottom:6mm;}
+.hd .no{font-size:12px;font-weight:700;color:var(--accent);}
+.hd h2{font-size:21px;font-weight:800;}
+.hd .sub{margin-left:auto;font-size:9.5px;color:var(--faint);}
+/* project header */
+.phd{margin-bottom:5mm;}
+.phd .top{display:flex;align-items:baseline;gap:10px;}
+.phd .plabel{font-size:9px;font-weight:800;color:var(--accent);letter-spacing:.12em;white-space:nowrap;}
+.phd .ptitle{font-size:16px;font-weight:800;}
+.phd .repbadge{font-size:7.6px;color:#fff;background:var(--accent);border-radius:9px;padding:2px 8px;font-weight:700;align-self:center;white-space:nowrap;}
+.phd .live{font-size:7.6px;color:#fff;background:var(--gold);border-radius:9px;padding:2px 8px;font-weight:700;align-self:center;white-space:nowrap;}
+.phd .pperiod{margin-left:auto;font-size:9px;color:var(--faint);white-space:nowrap;}
+.pnav{display:flex;align-items:center;gap:5px;margin-top:4mm;}
+.pnav .dot{width:7px;height:7px;border-radius:50%;background:var(--line);}
+.pnav .dot.on{background:var(--accent);width:22px;border-radius:4px;}
+.pnav .lab{font-size:8px;color:var(--faint);margin-left:7px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
+.phase-title{display:flex;align-items:baseline;gap:11px;border-top:1px solid var(--ink);padding-top:4mm;margin-top:4mm;}
+.phase-title h2{font-size:20px;font-weight:800;}
+.phase-title .en{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;}
+.phase-title .pstep{margin-left:auto;font-size:9px;font-weight:800;color:var(--faint);letter-spacing:.08em;}
+.phase-desc{font-size:14px;color:var(--sub);margin-top:2mm;}
+.flag{font-size:8px;color:var(--faint);border:1px dashed var(--line);border-radius:6px;padding:2px 8px;margin-left:8px;align-self:center;}
+/* cover */
+.cv{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.cv .doc{font-size:9px;letter-spacing:.5em;color:var(--accent);font-weight:700;text-transform:uppercase;}
+.cv h1{font-size:60px;font-weight:800;margin-top:14px;line-height:1;}
+.cv h1 small{display:block;font-size:12px;letter-spacing:.5em;color:var(--faint);font-weight:600;margin-top:14px;}
+.cv .role{margin-top:22px;font-size:15px;color:var(--sub);font-weight:600;}
+.cv .tag{margin-top:12px;font-size:12.5px;color:var(--accent);font-style:italic;line-height:1.6;}
+.cv .ct{margin-top:26px;display:flex;justify-content:center;gap:24px;font-size:10px;color:var(--sub);}
+.cv .ct b{color:var(--faint);font-weight:700;margin-right:5px;}
+/* toc */
+.tocrow{display:flex;align-items:baseline;border-bottom:1px solid var(--line2);padding:5.5mm 0;}
+.tocrow:last-child{border-bottom:none;}
+.tocrow .tno{font-size:15px;font-weight:800;color:var(--accent);width:36px;}
+.tocrow .tt{font-size:13.5px;font-weight:700;}
+.tocrow .rep{font-size:7.2px;color:#fff;background:var(--accent);border-radius:9px;padding:1px 7px;margin-left:8px;font-weight:700;}
+.tocrow .live{font-size:7.2px;color:#fff;background:var(--gold);border-radius:9px;padding:1px 7px;margin-left:6px;font-weight:700;}
+.tocrow .td{margin-left:12px;font-size:9px;color:var(--faint);}
+.tocrow .tp{margin-left:auto;font-size:12px;color:var(--faint);font-weight:700;}
+.toc-intro{font-size:10.5px;color:var(--sub);line-height:1.6;margin-bottom:4mm;}
+.toc-intro b{color:var(--accent);font-weight:700;}
+/* overview */
+.ov-thesis{font-size:10.5px;color:var(--sub);line-height:1.6;text-align:center;max-width:205mm;margin:0 auto 8mm;}
+.ov-thesis em{color:var(--accent);font-weight:700;}
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8mm;}
+.ov-card{border:1px solid var(--line);border-radius:12px;padding:7mm 6.5mm;display:flex;flex-direction:column;min-height:98mm;}
+.ov-top{display:flex;align-items:center;gap:8px;}
+.ov-name{font-size:19px;font-weight:800;}
+.ov-top .live,.ov-top .rep{white-space:nowrap;}
+.ov-sub{font-size:11.5px;color:var(--sub);margin-top:2.5mm;}
+.ov-meta{font-size:9.5px;color:var(--faint);margin-top:5mm;padding-top:4mm;border-top:1px solid var(--line2);}
+.ov-role{font-size:10.5px;color:var(--ink);margin-top:3.5mm;line-height:1.55;}
+.ov-role b{color:var(--accent);font-weight:700;margin-right:5px;}
+.ov-line{font-size:10.5px;color:var(--sub);line-height:1.65;margin-top:4mm;flex:1;}
+.ov-tags{margin-top:4.5mm;}
+.ov-page{font-size:9.5px;color:var(--accent);font-weight:700;margin-top:5mm;text-align:right;}
+/* profile */
+.prof{display:grid;grid-template-columns:42mm 1fr 1.05fr;gap:11mm;align-items:start;}
+.photo{aspect-ratio:3.5/4.5;border-radius:8px;overflow:hidden;line-height:0;color:var(--faint);border:1px solid var(--line);margin-bottom:8mm;}
+.pc{font-size:9.8px;color:var(--sub);margin-bottom:5px;}
+.pc:first-of-type{margin-top:9mm;}
+.pc b{color:var(--faint);font-weight:700;margin-right:6px;}
+.summary{font-size:11px;line-height:1.85;color:var(--sub);}
+.summary em{color:var(--ink);}
+.str .it{padding:2.4mm 0;border-top:1px solid var(--line2);}
+.str .it:first-child{border-top:none;}
+.str h4{font-size:11.5px;font-weight:700;}
+.str h4::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;}
+.str p{font-size:9.9px;color:var(--sub);padding-left:14px;margin-top:1.5px;}
+.skcat{font-size:9.2px;font-weight:700;color:var(--sub);margin:3mm 0 1.8mm;}
+.skcat:first-child{margin-top:0;}
+.skrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.skrow .n{font-size:9px;}
+.bar{display:inline-block;width:74px;height:5px;border-radius:3px;background:var(--line);position:relative;vertical-align:middle;}
+.bar i{position:absolute;left:0;top:0;height:5px;border-radius:3px;background:var(--accent);}
+/* placeholder + chips */
+.ph{border:1.6px dashed var(--line);border-radius:12px;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--faint);gap:7px;}
+.ph .pl{font-size:11px;font-weight:700;color:var(--sub);}
+.ph .ps{font-size:8.6px;color:var(--faint);}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:16px;padding:4px 10px;font-size:10px;margin:0 4px 4.5px 0;color:var(--ink);}
+.stacklbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:0 0 3mm;}
+.rtbl{border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:4.5mm 0 1mm;}
+.rtr{display:grid;grid-template-columns:0.72fr 1.35fr 2fr;border-top:1px solid var(--line2);}
+.rtr:first-child{border-top:none;}
+.rtr.rth>div{font-weight:800;color:var(--accent);font-size:8.6px;letter-spacing:.06em;text-transform:uppercase;padding:2mm 3.5mm;background:var(--accent-bg);}
+.rtr>div{padding:3.4mm 4mm;font-size:12.5px;color:var(--sub);line-height:1.4;border-left:1px solid var(--line2);}
+.rtr>div:first-child{border-left:none;}
+.rtr b{color:var(--ink);font-weight:700;}
+.rtr.mine>div{background:var(--accent-bg);}
+.rtr.mine b{color:var(--accent);}
+.bglist{list-style:none;margin-top:1mm;}
+.bglist li{font-size:12px;color:var(--sub);line-height:1.5;padding-left:15px;position:relative;margin-bottom:3.5mm;}
+.bglist li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.bglist li b{color:var(--ink);font-weight:700;}
+#p05 .kk{font-size:11px;}
+#p05 .body{justify-content:flex-start;padding-top:1mm;}
+.archstate .body{justify-content:flex-start;padding-top:2mm;}
+.teamfull .body{justify-content:flex-start;padding-top:2mm;}
+.teamfull .roles li{margin-bottom:2.3mm;}
+.fmscompact .rtr>div{padding:3.5mm 4mm;font-size:13px;line-height:1.4;}
+.fmscompact .rtr.rth>div{padding:2.4mm 4mm;font-size:10.5px;}
+.fmsflow{display:flex;flex-direction:column;}
+.fmsstep{align-self:flex-start;border:1px solid var(--line);border-radius:9px;padding:3mm 5.5mm;background:#fff;font-size:13px;font-weight:800;color:var(--ink);}
+.fmsstep .fmssub{font-size:9.5px;font-weight:600;color:var(--faint);margin-left:5px;}
+.fmsarrow{font-size:9.2px;color:var(--faint);padding:1.8mm 0 1.8mm 2mm;line-height:1.4;}
+.fmsgroup{border:1.3px solid var(--accent);border-radius:9px;padding:4mm 4.2mm;background:var(--accent-bg);}
+.fmsgroup .fmslabel{font-size:10.5px;font-weight:800;color:var(--accent);margin-bottom:2.8mm;letter-spacing:.04em;}
+.fmsrow{display:flex;align-items:stretch;gap:2.6mm;}
+.fmschip{border:1px solid var(--line);border-radius:7px;background:#fff;padding:2.6mm 3.4mm;flex:1;}
+.fmschip b{display:block;font-size:10.8px;color:var(--ink);font-weight:800;}
+.fmschip span{display:block;font-size:9px;color:var(--sub);margin-top:1.2mm;line-height:1.4;}
+.fmschip.sub{background:var(--panel);}
+.fmsarrow-h{display:flex;align-items:center;font-size:11px;color:var(--faint);padding:0 1.5mm;}
+
+.triocol .body{justify-content:flex-start;padding-top:2mm;}
+.tricol{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8mm;align-items:start;height:100%;}
+.tricol>div{border-left:1px solid var(--line);padding-left:7mm;}
+.tricol>div:first-child{border-left:none;padding-left:0;}
+.tricol .ilist li{font-size:11px;}
+.democlip.trio{height:36mm;}
+
+#p05 .teamline{font-size:13.5px;}
+#p05 .roles li{font-size:12px;line-height:1.4;margin-bottom:2.1mm;}
+#p05 .bglist li{font-size:13.5px;}
+.btpat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4mm 5mm;font-family:var(--mono);font-size:10px;line-height:1.75;white-space:pre;color:var(--sub);overflow:auto;}
+.btpat b{color:var(--accent);font-weight:700;}
+/* overview */
+.pov{display:grid;grid-template-columns:1.05fr 1.25fr;gap:11mm;align-items:center;}
+.kvb{margin-bottom:6mm;}
+.kvb .kk{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:2mm;}
+.kvb p{font-size:16.5px;color:var(--sub);line-height:1.6;}
+.kvb .goal{font-size:16.5px;color:var(--ink);font-weight:600;line-height:1.5;}
+.roles{list-style:none;}
+.roles li{font-size:15px;color:var(--ink);padding-left:16px;position:relative;margin-bottom:3mm;}
+.roles li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:2px;background:var(--accent);}
+.teamline{font-size:14px;color:var(--faint);margin-bottom:3.5mm;}
+.teamline b{color:var(--ink);font-weight:700;}
+/* features */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:7mm;}
+.feat.c3{grid-template-columns:1fr 1fr 1fr;}
+.fcard{border:1px solid var(--line);border-radius:12px;padding:6.5mm 6mm;}
+.fcard .fn{display:flex;align-items:baseline;gap:9px;}
+.fcard .fno{font-size:14px;font-weight:900;color:var(--accent);line-height:1;}
+.fcard h4{font-size:17px;font-weight:800;}
+.fcard p{font-size:15px;color:var(--sub);line-height:1.55;margin-top:2.2mm;padding-left:22px;}
+.frole{margin-top:4.5mm;font-size:13.5px;color:var(--faint);}
+.frole b{color:var(--accent);font-weight:700;margin-right:6px;}
+/* problem solving */
+.ps{display:grid;grid-template-columns:1fr 1.12fr;gap:11mm;align-items:start;}
+.blk{margin-bottom:7mm;}
+.blk p{font-size:16px;color:var(--sub);line-height:1.65;}
+.blk p.def{color:var(--ink);font-weight:600;}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6mm;}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6.5mm;}
+.metric .mv{font-size:26px;font-weight:800;color:var(--accent);line-height:1.1;}
+.metric .mc{font-size:13px;color:var(--sub);margin-top:5px;}
+.trade{border:1px solid var(--accent);border-radius:10px;overflow:hidden;margin-top:2.5mm;}
+.trade .tb{display:grid;grid-template-columns:1fr 1fr;}
+.trade .tc{padding:3mm 4mm;}
+.trade .tc:first-child{border-right:1px solid var(--line);}
+.trade .cl{font-size:11px;font-weight:800;letter-spacing:.05em;margin-bottom:1.5mm;}
+.trade .get .cl{color:var(--accent);}
+.trade .give .cl{color:var(--faint);}
+.trade p{font-size:13.5px;color:var(--sub);line-height:1.5;}
+/* retro */
+.retro{display:grid;grid-template-columns:1fr 1fr;gap:18mm 12mm;}
+.rc{padding-top:5mm;border-top:2px solid var(--accent);}
+.rc h4{font-size:17px;font-weight:800;}
+.rc p{font-size:15.5px;color:var(--sub);line-height:1.65;margin-top:2.2mm;}
+/* closing */
+.closing{display:flex;flex-direction:column;justify-content:center;height:100%;}
+.cl-lead{font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);font-weight:700;text-align:center;}
+.cl-q{font-size:26px;font-weight:800;text-align:center;margin-top:7mm;line-height:1.5;}
+.cl-q em{color:var(--accent);}
+.cl-cap{display:grid;grid-template-columns:repeat(3,1fr);gap:12mm;margin-top:15mm;padding-top:9mm;border-top:1px solid var(--line);}
+.cl-cap .c .k{font-size:9.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:3mm;}
+.cl-cap .c p{font-size:11px;color:var(--sub);line-height:1.72;}
+.cl-name{text-align:center;margin-top:8mm;}
+.cl-name .nm{font-size:34px;font-weight:800;}
+.cl-name .info{font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin-top:7px;}
+.cl-hero{font-size:25px;font-weight:800;text-align:center;line-height:1.55;letter-spacing:-.01em;margin-top:7mm;}
+.cl-hero em{color:var(--accent);}
+.cl-role{text-align:center;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-top:12mm;}
+.cl-give{margin-top:12mm;padding-top:8mm;border-top:1px solid var(--line);}
+.cl-give-h{text-align:center;font-size:9.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5mm;}
+.cl-give-list{list-style:none;max-width:100mm;margin:0 auto;}
+.cl-give-list li{font-size:11px;color:var(--sub);padding-left:18px;position:relative;line-height:1.5;margin-bottom:3.6mm;}
+.cl-give-list li:last-child{margin-bottom:0;}
+.cl-give-list li::before{content:"";position:absolute;left:0;top:5px;width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.cl-give-list li b{color:var(--ink);font-weight:700;}
+.cl-nm2{text-align:center;font-size:30px;font-weight:800;margin-top:5mm;}
+.cl-contact{text-align:center;font-size:9.5px;color:var(--faint);letter-spacing:.06em;margin-top:13mm;}
+</style>
+<style>
+/* ===== image / diagram slides ===== */
+.imgwrap{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:4mm;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.imgwrap img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+.imgcap{font-size:12px;color:var(--faint);text-align:center;margin-top:2mm;letter-spacing:.05em;}
+.twoimg{display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:stretch;}
+.imgtext{display:grid;grid-template-columns:1.35fr 1fr;gap:11mm;align-items:start;}
+.note{font-size:15px;color:var(--sub);line-height:1.6;}
+.note b{color:var(--accent);}
+.ilist{list-style:none;margin-top:2mm;}
+.ilist li{font-size:15px;color:var(--sub);padding-left:15px;position:relative;margin-bottom:2.6mm;line-height:1.5;}
+.ilist li::before{content:"";position:absolute;left:0;top:5px;width:6px;height:6px;border-radius:2px;background:var(--accent);}
+.ilist li b{color:var(--ink);font-weight:700;}
+/* folder / code block */
+.folder{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5mm 6mm;font-family:var(--mono);font-size:11.5px;line-height:1.85;white-space:pre;color:var(--sub);overflow:auto;}
+.folder b{color:var(--accent);font-weight:700;}
+.folder u{color:var(--gold);text-decoration:none;font-weight:700;}
+.folder s{color:var(--faint);text-decoration:none;}
+/* jira sprint mini board */
+.jira{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;}
+.spcol{border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+.spcol .sph{background:var(--accent-bg);padding:2.4mm 4mm;font-size:8.6px;font-weight:800;color:var(--accent);display:flex;justify-content:space-between;align-items:center;}
+.spcol .sph .stt{font-size:7px;font-weight:700;color:var(--faint);}
+.spcol .spb{padding:2.6mm 4mm 3mm;}
+.iss{font-size:8px;padding:1.5mm 0;border-top:1px solid var(--line2);display:flex;gap:5px;align-items:baseline;}
+.iss:first-child{border-top:none;}
+.iss .k{font-family:var(--mono);font-size:7px;color:var(--faint);white-space:nowrap;}
+.iss .t{color:var(--sub);line-height:1.3;}
+.iss.mine .t{color:var(--ink);font-weight:700;}
+.iss.mine .k{color:var(--accent);}
+.chipcloud .cc{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:2.5px 8px;font-size:8px;margin:0 4px 4px 0;color:var(--sub);}
+.chipcloud .cc.hi{border-color:var(--accent);color:var(--accent);font-weight:700;}
+.statrow{display:flex;gap:5mm;margin-bottom:4mm;}
+.statbox{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3.4mm 4mm;text-align:center;}
+.statbox .sv{font-size:24px;font-weight:800;color:var(--accent);line-height:1;}
+.statbox .sl{font-size:12.5px;color:var(--sub);margin-top:4px;}
+.skb{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:9.4px;margin:0 4.5px 5px 0;color:var(--sub);}
+.skset{margin-bottom:1mm;}
+.growth{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm;}
+.gstep{border-top:2px solid var(--line);padding-top:2.4mm;}
+.gstep.rep{border-top-color:var(--accent);}
+.gstep.live{border-top-color:var(--gold);}
+.gstep .gn{font-size:8.2px;font-weight:800;color:var(--accent);letter-spacing:.05em;}
+.gstep.live .gn{color:var(--gold);}
+.gstep h5{font-size:8.7px;font-weight:800;margin-top:1.4mm;}
+.gstep p{font-size:7.8px;color:var(--sub);line-height:1.42;margin-top:1.4mm;}
+.toc-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(24,24,27,.55);align-items:center;justify-content:center;}
+.toc-modal.open{display:flex;}
+.toc-modal-box{background:#fff;border-radius:16px;padding:30px 34px 22px;min-width:400px;box-shadow:0 24px 70px rgba(0,0,0,.45);font-family:var(--sans);}
+.toc-modal-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:16px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px;}
+.toc-modal-h span{font-size:8px;color:var(--faint);letter-spacing:.08em;text-transform:none;font-weight:600;}
+.toc-modal-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;font-size:15px;font-weight:700;color:var(--ink);text-decoration:none;}
+.toc-modal-item b{color:var(--accent);font-weight:800;}
+.toc-modal-item:hover{background:var(--accent-bg);color:var(--accent);}
+.toc-modal-item .rep,.toc-modal-item .live{font-size:8px;color:#fff;border-radius:9px;padding:1px 7px;font-weight:700;}
+.toc-modal-item .rep{background:var(--accent);}
+.toc-modal-item .live{background:var(--gold);}
+@media print{.toc-modal{display:none !important;}}
+@media screen {
+  body{background:#3f3f46;padding:28px 0;}
+  .slide{margin:0 auto 26px;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+}
+</style>
+</head><body>
+
+<!-- 01 COVER -->
+<div class="slide" id="p01"><div class="cv"><div class="doc">Portfolio</div><h1 class="kr">이강택<small>LEE KANGTAEK</small></h1><div class="tag kr">새로운 지식에 늘 호기심을 갖고 끊임없이 도전하며 배우는,<br>어제보다 오늘 더 아는 개발자 이강택입니다.</div><div class="ct"><span><b>GitHub</b><a href="https://github.com/dlrkdxor0821">github.com/dlrkdxor0821</a></span><span><b>Email</b><a href="mailto:dlrkdxor0821@gmail.com">dlrkdxor0821@gmail.com</a></span><span><b>Phone</b><a href="tel:+821036850675">010-3685-0675</a></span></div></div><div class="pgname">Portfolio · 이강택</div></div>
+
+<!-- 02 INDEX -->
+<div class="slide" id="p02"><div class="hd"><span class="no">—</span><h2>Index</h2><span class="sub">목차</span></div><div class="body"><div class="tocrow"><span class="tno">01</span><span class="tt kr">Profile</span><span class="td kr">기본정보 · 자기소개 · 기술스택 · 교육이수 · 수상</span><span class="tp">03</span></div><div class="tocrow"><span class="tno">02</span><span class="tt kr">Projects at a glance</span><span class="td kr">3개 프로젝트 한눈에 — 주제 · 역할 · 핵심</span><span class="tp">04</span></div><div class="tocrow"><span class="tno">03</span><span class="tt kr">핑더가든 — ROS2 유치원 교육보조로봇</span><span class="td kr">소개 · 아키텍처·State · 동작·인터랙션 · 재추종·에러 · 문제해결(2p) · 회고 (7p)</span><span class="tp">05</span></div><div class="tocrow"><span class="tno">04</span><span class="tt kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span><span class="td kr">소개 · 아키텍처·State · 내가 한 것(2p) · 문제해결 · 회고 (6p)</span><span class="tp">12</span></div><div class="tocrow"><span class="tno">05</span><span class="tt kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span><span class="td kr">소개 · 아키텍처·State · 시퀀스 · LiBi GUI · FMS · 추종 (6p)</span><span class="tp">18</span></div><div class="tocrow"><span class="tno">06</span><span class="tt kr">Closing</span><span class="td kr">마무리 — 마지막 설득</span><span class="tp">24</span></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">02</div></div>
+
+<!-- 03 PROFILE (merged) -->
+<div class="slide" id="p03"><div class="hd"><span class="no">01</span><h2>Profile</h2><span class="sub">About Me · 기술 스택 · 교육 · 수상</span></div><div class="body"><div style="display:grid;grid-template-columns:40mm 1.3fr 1.15fr;gap:9mm;align-items:start;"><div><div class="photo"><img src="https://images.prismic.io/asd0821/a-ATu7tum4uFGuzr_profile.jpg?auto=format,compress" alt="이강택" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="pc"><b>생년월일</b>2001.08.21</div><div class="pc"><b>학력</b>한서대 항공전자공학과</div><div class="pc"><b>학점</b>3.94 / 4.5 · 2026.02 졸업</div><div class="pc"><b>Email</b><a href="mailto:dlrkdxor0821@gmail.com">dlrkdxor0821@gmail.com</a></div><div class="pc"><b>Phone</b><a href="tel:+821036850675">010-3685-0675</a></div><div class="pc"><b>GitHub</b><a href="https://github.com/dlrkdxor0821">github.com/dlrkdxor0821</a></div></div><div><div class="lbl">About Me</div><p class="summary kr" style="font-size:10.6px;line-height:1.7;text-align:justify">저는 새로운 기술에 <em>호기심</em>을 갖고 꾸준히 배우며, 이를 실제 프로젝트에 적용하는 로보틱스 엔지니어입니다. 여러 팀 프로젝트를 수행하며 협업과 설계 중심의 소통 방식을 익혔고, 상태 관리와 주행 구조를 직접 설계하며 <em>기술 선택을 실험과 데이터로 검증</em>하는 개발자로 성장했습니다. 단순히 기능을 구현하는 데 그치지 않고, ‘무엇을 만들었는가’보다 <em>‘왜 그렇게 설계했는가’</em>를 설명할 수 있는 개발자가 되기 위해 노력해왔습니다. 로봇부터 이를 제어하는 관제 시스템과 UI까지 <em>하나의 시스템으로 구현</em>하는 과정에 가장 큰 보람을 느낍니다.</p><div class="lbl" style="margin-top:4.5mm">Skills</div><div class="skcat">프로그래밍 언어</div><div class="skset"><span class="skb">Python</span><span class="skb">C/C++</span></div><div class="skcat">개발 환경</div><div class="skset"><span class="skb">Ubuntu (Linux)</span><span class="skb">Gazebo</span><span class="skb">RViz2</span><span class="skb">Conda</span><span class="skb">VS Code</span></div><div class="skcat">프레임워크</div><div class="skset"><span class="skb">ROS2</span><span class="skb">Navigation2</span><span class="skb">PyTorch</span><span class="skb">OpenCV</span><span class="skb">YOLO</span></div><div class="skcat">데이터베이스</div><div class="skset"><span class="skb">MySQL</span><span class="skb">PostgreSQL</span></div><div class="skcat">DevOps / Infra</div><div class="skset"><span class="skb">Docker</span></div><div class="skcat">형상관리 · 협업</div><div class="skset"><span class="skb">Git</span><span class="skb">Jira</span><span class="skb">Confluence</span><span class="skb">Slack</span></div></div><div><div class="lbl">교육 이수</div><div class="str"><div class="it"><h4 class="kr">애드인에듀 · Physical AI <span style="color:var(--faint);font-weight:600;font-size:8.2px">2025.12–2026.06 · 960h</span></h4><p class="kr">딥러닝·LLM·YOLO, ROS2 자율주행·로봇팔(모방학습·VLA), SLAM·Nav2, 애자일 산출물 작성. <em>팀 프로젝트 4건</em>.</p></div><div class="it"><h4 class="kr">애드인에듀 · 심화 <span style="color:var(--gold);font-weight:700;font-size:8.2px">2026.06–08 · 진행중</span></h4><p class="kr">9주 팀 프로젝트 중심. ROS2·AI 자율주행 &amp; 로봇팔 개발(<em>ABA·리비</em>).</p></div></div><div class="lbl" style="margin-top:4mm">수상</div><div class="str"><div class="it"><h4 class="kr">모방학습 로봇 구동 해커톤 <span style="background:var(--sub);color:#fff;font-size:7px;border-radius:9px;padding:1px 7px;font-weight:700">🥈 종합 2위</span></h4><p class="kr">최우수상(경남테크노파크 원장상) · 대상(1위) 다음 순위 · 2026.02 · SO-ARM 101 ACT 모방학습 대회.</p></div></div></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">03</div></div><div class="slide" id="p04"><div class="hd"><span class="no">02</span><h2>Projects</h2><span class="sub">3개 프로젝트 한눈에</span></div><div class="body"><div class="ov-grid"><div class="ov-card"><div class="ov-top"><span class="ov-name kr">핑더가든</span></div><div class="ov-sub kr">ROS2 유치원 교육보조로봇</div><div class="ov-meta kr">2026.04–06 · 6인 팀 · 약 7주</div><div class="ov-role kr"><b>역할</b>GogoPing 자율주행 전담 리드</div><div class="ov-line kr">유치원 등원–놀이–낮잠–하원을 함께하는 멀티 로봇 교육보조 서비스. 좁은 실내에서 아이들과 안전하게 상호작용하며 정밀 자율주행하는 것이 핵심 과제.</div><div class="ov-tags"><span class="skb">Nav2</span><span class="skb">FSM·BT</span><span class="skb">DOE</span></div><div class="ov-page">자세히 → p.05</div></div><div class="ov-card"><div class="ov-top"><span class="ov-name kr">쑈삥끼</span></div><div class="ov-sub kr">로봇 스마트 쇼핑카트</div><div class="ov-meta kr">2026.03–04 · 6인 팀 · 약 4주</div><div class="ov-role kr"><b>역할</b>상태전이 로직·QR 결제 앱·추종 담당</div><div class="ov-line kr">고객을 인식·추종하며 상품 검색·안내·결제·충전소 복귀까지 자동 처리하는 자율주행 다중 로봇(Fleet) 쇼핑카트.</div><div class="ov-tags"><span class="skb">State Machine</span><span class="skb">YOLO</span></div><div class="ov-page">자세히 → p.12</div></div><div class="ov-card"><div class="ov-top"><span class="ov-name kr">ABA</span><span class="live">진행중</span></div><div class="ov-sub kr">Arte Book Assistance · 도서관 사서 협동로봇</div><div class="ov-meta kr">2026.06–08 · Team ARTE · 9주</div><div class="ov-role kr"><b>역할</b>팀장·설계·LiBi GUI·추종·FMS</div><div class="ov-line kr">사서를 대체하지 않고 손과 다리가 되는 협동로봇. 서가에서 책을 직접 집어 이송·분류하고, 이용자를 추종해 짐을 옮긴다.</div><div class="ov-tags"><span class="skb">요구사항·설계</span><span class="skb">Qt/QML</span><span class="skb">FMS</span><span class="skb">YOLO</span></div><div class="ov-page">자세히 → p.18</div></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">04</div></div>
+
+<!-- ============ 핑더가든 ============ -->
+<!-- 05 핑더 소개 -->
+<div class="slide" id="p05"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span><span class="pperiod">2026.04.23 – 06.04 · 약 7주</span></div><div class="pnav"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">소개</span></div><div class="phase-title"><h2 class="kr">소개</h2><span class="en">Overview</span><span class="pstep">01 / 07</span></div></div><div class="body"><div class="pov" style="grid-template-columns:1fr 1.05fr;gap:10mm;align-items:start"><div><div class="kvb"><div class="kk">프로젝트 주제</div><p class="kr" style="font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.5">유치원의 하루 일과(등원–놀이–낮잠–하원)를 함께하는 <em>멀티 로봇 교육보조 서비스</em></p><p class="kr" style="font-size:13.5px;line-height:1.6;color:var(--sub);margin-top:2.5mm">역할이 다른 로봇 3종이 협업해 아이와 놀아주고 교사의 반복 업무를 자동화. 음성·컴퓨터 비전·자율주행(Nav2)·로봇팔(모방학습)을 하나의 서비스로 통합.</p></div><div class="rtbl"><div class="rtr rth"><div>로봇</div><div>하드웨어</div><div>담당</div></div><div class="rtr"><div><b>EduPing</b></div><div>듀얼 로봇팔 (OpenArm)</div><div>등·하원 인사, 율동, 가게놀이, 정리, 원격 진찰</div></div><div class="rtr mine"><div><b>GogoPing</b></div><div>자율주행 모바일 (Vic Pinky)</div><div>교사 추종·짐 운반, 숨바꼭질, 자장가</div></div><div class="rtr"><div><b>NoriArm</b></div><div>교실 로봇팔 (OMX)</div><div>블럭쌓기, OX 퀴즈, 정리</div></div></div><div class="stacklbl" style="margin-top:4mm">사용 기술</div><span class="chip">Python</span><span class="chip">ROS2 Jazzy</span><span class="chip">Nav2</span><span class="chip">BT</span><span class="chip">AMCL / SLAM</span><span class="chip">FSM</span><span class="chip">Gazebo</span></div><div><div class="kvb"><div class="kk">프로젝트 배경</div><ul class="bglist"><li class="kr">교사의 과중한 <b>비교육 업무</b> — 출결·놀이 진행·사진·일과 정리 반복</li><li class="kr">등·하원 관리의 <b>안전·정확성</b> 요구 — 수기 출결의 누락·지연</li><li class="kr">학부모와의 <b>소통 단절</b> — 하루 활동·감정·사진 확인 창구 부족</li><li class="kr">음성·비전·자율주행·매니퓰레이션을 엮은 <b>통합 서비스의 실사용 검증 공백</b></li></ul></div><div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (사랑의 에듀핑)</b> · 로봇별 역할 분담</div><ul class="roles"><li class="kr">GogoPing 자율주행 로봇 <b>전담 리드</b> — 제 담당 패키지(FSM·Nav2·관제) 코드 <b>89% 기여</b></li><li class="kr"><b>FSM</b>(10 states·13 trigger) + <b>BT</b>(MainTree 10·SubTree 5) 행동 아키텍처 설계</li><li class="kr">그래프 라우팅 — 커스텀 Dijkstra(<b>30 vertex·36 lane</b>) · <b>can_rotate 5지점</b> 화이트리스트로 안전 회전 제한</li><li class="kr">Controller·Planner — Gazebo sim <b>DOE 9조합</b>(planner×controller) 비교 후 채택</li><li class="kr">관제 <b>Admin 앱(PyQt5)</b> — 로그 뷰어 · vertex 노드 편집 · 키보드 텔레옵</li><li class="kr">인터랙션 — <b>숨바꼭질</b>(30초 카운트다운·얼굴인식 cosine 0.7) · 자장가 · <b>다중 명령</b>(CommandListener)</li><li class="kr">안전 — Collision Detection 근접정지·재탐색 · map bounding·센서유실 감시 · idle <b>15분</b> 자동 복귀</li></ul></div><div class="kvb"><div class="kk">관련 링크</div><p class="kr" style="font-size:9.5px">GitHub <a href="https://github.com/addinedu-physicalai-1st/physical-ai-repo-2">physical-ai-repo-2</a></p></div></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">05</div></div>
+
+<!-- 06 핑더 아키텍처 -->
+<div class="slide archstate" id="p06"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span></div><div class="pnav"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Architecture · State</span></div><div class="phase-title"><h2 class="kr">시스템 아키텍처 · State Diagram</h2><span class="en">Architecture &amp; State</span><span class="pstep">02 / 07</span></div></div><div class="body"><div class="twoimg" style="gap:8mm"><div><div class="imgwrap" style="height:72mm"><img class="zoomable" src="https://images.prismic.io/asd0821/25Pa7VNM6TEbM1LS_pingder_arch.png?auto=format,compress" alt="핑더가든 아키텍처"></div><div class="imgcap kr">시스템 아키텍처</div></div><div><div class="imgwrap statezoom" style="height:72mm;cursor:zoom-in;position:relative" onclick="openStateModal()"><img src="https://images.prismic.io/asd0821/GufSx4JEIzuXbkg__pingder_state.png?auto=format,compress" alt="GogoPing FSM 상태 다이어그램"><span class="zoomhint">🔍 클릭하여 확대</span></div><div class="imgcap kr">GogoPing FSM — 10 states</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9mm;margin-top:3mm"><div><div class="lbl">구성 개요</div><ul class="ilist"><li class="kr"><b>브라우저(로봇 UI·포털)</b> → <span style="white-space:nowrap"><b>Control Service</b>(FastAPI+rclpy)</span> → ROS2 그래프</li><li class="kr"><b>Control Service ↔ AI Hub</b> 의도분류·비전·보고서(Ollama) · <b>PostgreSQL+pgvector</b> 통합</li><li class="kr">교사용 <b>Admin 앱(PyQt5)</b>가 REST/WS로 상태·카메라·로그 관제</li></ul><div class="note kr" style="margin-top:2mm;background:var(--panel);border-left:2px solid var(--accent);padding:2mm 3mm;border-radius:0 8px 8px 0;font-size:11px">저는 <b>GogoPing 자율주행 스택</b>(센서→판단→구동→관제→검증)을 수직으로 소유했습니다.</div></div><div><div class="lbl">State 흐름 (10 states)</div><ul class="ilist"><li class="kr">IDLE → GOTO·FOLLOW·LULLABY·HIDEANDSEEK·MANUAL → RETURNING·LOW_BATTERY_RETURNING</li><li class="kr"><code>&lt;task&gt;_request</code>로 task 간 직접 전이 · fault → <b>ERROR</b>(terminal, 재시작 필요)</li><li class="kr"><b>MANUAL</b> 모드는 토크 OFF — 사람이 직접 로봇을 밀 수 있음</li></ul><div class="note kr" style="margin-top:2mm;background:var(--panel);border-left:2px solid var(--accent);padding:2mm 3mm;border-radius:0 8px 8px 0;font-size:11px">10개 상태·13개 trigger로 설계 — 상세 전이 규칙은 다음 페이지(동작 설계)에서 이어집니다.</div></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">06</div></div>
+
+<div class="slide triocol" id="p07"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Behavior &amp; Interaction</span></div><div class="phase-title"><h2 class="kr">동작 설계 · 숨바꼭질 · 수동 모드</h2><span class="en">Behavior &amp; Interaction</span><span class="pstep">03 / 07</span></div></div><div class="body"><div class="tricol"><div><div class="lbl">FSM + Behavior Tree</div><div class="btpat" style="font-size:8.3px;padding:2.8mm 3.2mm">MainTree[state] =
+ Parallel(Main 감시 + Sub 행동)</div><ul class="ilist"><li class="kr"><b>FSM</b>=언제 어떤 상태로, <b>BT</b>=그 상태를 어떻게 수행 — 역할 분리</li><li class="kr"><b>Main</b>(monitor) — 상태 무관 병렬로 배터리·맵경계·HW·근접·명령 감시, 이벤트 시 FSM trigger 발화. 항상 RUNNING</li><li class="kr"><b>Sub</b>(body) — 그 상태일 때만 도는 실제 행동. 복잡한 상태(도킹·숨바꼭질·복귀)는 SubTree로 캡슐화</li></ul><div class="lbl" style="margin-top:4mm">이렇게 나눈 이유</div><ul class="ilist"><li class="kr">안전·명령 감시는 <b>어떤 상태에서도 멈추면 안 됨</b> → Main 계층 분리</li><li class="kr">BT 교체 시 <b>root.stop(INVALID)</b>로 안전 종료(cmd_vel=0·goal cancel)</li><li class="kr">결과 — leaf <b>26종 → 5개 패턴</b>으로 정리, 유지보수·테스트 용이</li></ul></div><div><div class="lbl">숨바꼭질</div><div class="demorow" style="margin-bottom:3mm"><div class="democlip trio" onclick="openMedia('https://asd0821.cdn.prismic.io/asd0821/6ks_xm2vVCc-aQgS_demo_hideseek.mp4','video','숨바꼭질 — 얼굴 등록·탐색 실물 데모')"><img src="https://images.prismic.io/asd0821/ncIb19JKDpCFwKrH_demo_hideseek_poster.jpg?auto=format,compress" alt="데모 영상 · 클릭 재생"><span class="pbtn">▶</span><span class="clab">데모 영상 · 클릭 재생</span></div></div><div class="btpat" style="font-size:8.3px;padding:2.8mm 3.2mm">이동→등록→카운트(30s)
+→순찰→복귀→종료</div><ul class="ilist"><li class="kr">놀이구역 이동 후 아이 얼굴을 <b>등록</b>, 30초 카운트 뒤 순찰 지점마다 탐색(순찰 도중 발견도 인정)</li><li class="kr">그룹 shuffle + 최근접(NN) 순찰 순서로 <b>매판 다른 동선</b></li><li class="kr"><b>몸은 정지, 카메라만</b> pan/tilt로 좌우 sweep 탐색</li><li class="kr"><b>등록 아동만 정답</b> — InsightFace ArcFace + pgvector cosine 0.7</li><li class="kr">순찰 중 장애물 출현 시 <b>Nav2 동적 re-plan</b>으로 실시간 우회</li></ul></div><div><div class="lbl">수동 모드 · 다중 명령</div><ul class="ilist"><li class="kr"><b>ManualTorqueHold</b> — MANUAL 진입 시 <b>토크 OFF</b>로 사람이 직접 로봇을 밀 수 있음, 다른 상태로 나가면 토크 자동 복원</li><li class="kr">토크 해제 중엔 <b>감시를 최소화</b>해 자동 개입 차단, e-stop·ERROR 시엔 <b>토크 복원 건너뜀</b>(안전 최우선). ON/OFF 둘 다 <b>idempotent</b>하게 설계해 재진입해도 안전</li><li class="kr">모든 명령의 관문 — <b>CommandListener</b>가 노출하는 서비스 3종: <b>SetGoal</b>(이동 명령), <b>ForceState</b>(관리자용 강제 상태 전이, admin UI debug_state_bar), <b>SetRobotPose</b>(디버그 좌표 강제 override). 어느 명령이든 결국 이 관문을 거쳐 <b>goal_reconciler</b>가 상태별 FSM trigger로 변환 — <b>17개 시나리오</b>로 단위 테스트 검증</li><li class="kr"><b>다중 명령</b> — "수면실 가서 자장가 불러줘"처럼 <b>목적지 이동 + 후속 행동</b>을 한 문장으로 지시 가능. AI 의도 파싱이 이동+도착 후 모드를 함께 구조화하고, 클라이언트(robot-web)가 <b>도착을 감지해 두 번째 SetGoal을 순차 전송</b> — 로봇 쪽 goal_reconciler는 매번 독립적인 단일 명령으로 처리</li></ul></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">07</div></div>
+
+<div class="slide" id="p08"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Rerouting &amp; Error Handling</span></div><div class="phase-title"><h2 class="kr">경로 재추종 · 각종 에러 처리</h2><span class="en">Rerouting &amp; Error Handling</span><span class="pstep">04 / 07</span></div></div><div class="body"><div class="ps"><div><div class="lbl">경로 재추종</div><div class="demorow" style="margin-bottom:4mm"><div class="democlip" style="height:60mm;width:100%" onclick="openMedia('https://asd0821.cdn.prismic.io/asd0821/c4HuzlV6mXNJ2OSA_demo_reroute_2x.mp4','video','사람 인식 → 경로 재추종 (2배속)')"><img src="https://images.prismic.io/asd0821/gMm0nUVVqO2PTEwF_demo_reroute_poster.jpg?auto=format,compress" alt="경로 재추종 · 2배속" style="height:100%;width:100%;object-fit:cover"><span class="pbtn">▶</span><span class="clab">경로 재추종 · 2배속 · 클릭 재생</span></div></div><p class="note kr"><b>D435 Depth</b>로 사람 근접을 관측(<b>ProximitySafetyMonitor</b> · /proximity_event)하면 즉시 <b>정지(PAUSE)</b> — 사람이 <b>1초 이상 확실히 비키면</b> 원래 경로로 그대로 <b>재개(RESUME)</b>합니다.</p><p class="note kr" style="margin-top:3mm">비키지 않고 <b>10초 이상 지속</b>되면 그 지점을 막힘(blocked)으로 표시하고 <b>우회 경로를 재탐색(REROUTE)</b>합니다 — 안 비킬 때만 새 경로를 계산합니다.</p></div><div><div class="lbl">각종 에러 처리</div><div class="lbl" style="font-size:10px;margin-top:1mm">즉시 정지</div><p class="note kr"><b>긴급 정지</b> — e-stop → <b>StopAllMotors</b>(ERROR)로 즉시 정지·토크 release. BT 교체 시 terminate로 <b>cmd_vel=0 · goal cancel</b> 강제.</p><div class="lbl" style="font-size:10px;margin-top:5mm">상태 무관 · 항상 도는 감시</div><ul class="ilist"><li class="kr"><b>HardwareHealth</b> — <b>LIDAR·odom 3초</b> 미수신 시 fault(부팅 15초 grace)</li><li class="kr"><b>MapBoundary</b> — OccupancyGrid 기반 맵 밖/unknown 셀 감지 시 fault</li><li class="kr"><b>CollisionMonitor</b> — nav2 collision_monitor 정지가 <b>5분</b> 지속되면 작업 취소(cancel) 또는 fault</li><li class="kr"><b>BatteryLow / Full</b> — 배터리 임계 시 자동 복귀·충전</li><li class="kr"><b>IdleTimeout</b> — IDLE 진입 후 <b>15분</b> 무명령 시 자동 복귀</li></ul></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">08</div></div>
+
+<div class="slide teamfull" id="p09"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="lab">Child Safety</span></div><div class="phase-title"><h2 class="kr">아이 안전 설계</h2><span class="en">Child Safety</span><span class="pstep">05 / 07</span></div></div><div class="body"><div class="blk" style="margin-bottom:6mm"><div class="lbl">아이 곁을 달리는 로봇의 물리적 위험</div><p class="def kr">유치원 실내에서 <b>아이와 같은 공간을 주행</b>하는 로봇이 만드는 두 가지 안전 위협을, 주행·인식 설계로 제거했습니다.</p></div><div class="feat"><div class="fcard"><div class="fn"><span class="fno">①</span><h4 class="kr">좁은 통로 · 차량 후미 스윙</h4></div><div style="display:flex;gap:2.5mm;margin:3mm 0"><div class="democlip" style="height:26mm;width:50%" onclick="openMedia('https://asd0821.cdn.prismic.io/asd0821/aiAgEQeQX7-eWp_6_can_rotate2.mp4','video','can_rotate — 좁은 통로 회전 안전 지점에서만 회전')"><img src="https://images.prismic.io/asd0821/3-EUneA7jAmbOdYI_demo_canrotate_poster.jpg?auto=format,compress" alt="좁은 통로 회전 안전 실물 데모" style="height:100%;width:100%;object-fit:cover"><span class="pbtn">▶</span><span class="clab">실물 데모</span></div><div class="democlip" style="height:26mm;width:50%" onclick="openMedia('https://asd0821.cdn.prismic.io/asd0821/aiAgDweQX7-eWp_4_can_rotate1.mp4','video','can_rotate — vertex 그래프 경로 시각화')"><img src="https://images.prismic.io/asd0821/OY6JoTNAKQjB1djs_demo_canrotate_map_poster.jpg?auto=format,compress" alt="회전 안전 지점 그래프 시각화" style="height:100%;width:100%;object-fit:cover"><span class="pbtn">▶</span><span class="clab">경로 시각화</span></div></div><p class="kr"><b>문제</b> — 구동 바퀴가 앞쪽, 차체는 뒤로 긴 구조라(footprint 앞 +0.10m·뒤 −0.50m) 제자리 회전 시 <b>뒤꽁무니가 반경 0.57m 호</b>를 휩씁니다. 좁은 통로 반폭(~0.5m)을 넘겨 벽은 물론 <b>옆에 있는 아이와 부딪힐 위험</b>이 있었습니다.</p><p class="kr" style="margin-top:2mm"><b>해결</b> — Nav2 표준 Route Server 대신 <b>그래프 라우팅을 커스텀 Dijkstra planner로 직접 구현</b>했습니다. 진행 방향과 135° 넘게 꺾이는 급선회 차선은 <em>Heading-aware Dijkstra</em>가 후보에서 아예 제외하고, 남은 회전은 벽에서 충분히 떨어진 <em>can_rotate 5지점</em>(30개 vertex 중)에서만 허용했습니다.</p></div><div class="fcard"><div class="fn"><span class="fno">②</span><h4 class="kr">로봇이 높아 아동 미검출</h4></div><div class="democlip" style="height:26mm;width:100%;margin:2.5mm 0" onclick="openMedia('https://asd0821.cdn.prismic.io/asd0821/DgtdW_j9S6AtKgob_demo_collision.mp4','video','Collision Monitor — 사람 근접 정지')"><img src="https://images.prismic.io/asd0821/TZtA3hT_sI7QvG_A_demo_collision_poster.jpg?auto=format,compress" alt="Collision Monitor" style="height:100%;width:100%;object-fit:cover"><span class="pbtn">▶</span><span class="clab">Collision Monitor · 클릭 재생</span></div><p class="kr"><b>문제</b> — 로봇 카메라가 <b>고정(축 없음)</b>이면 키가 작은 유치원생이 가까이 다가와도 시야 각도가 안 맞아 <b>놓칠 수 있었습니다</b>.</p><p class="kr" style="margin-top:2mm"><b>해결</b> — <em>D435 Depth 카메라</em>를 <b>2축(pan/tilt) 모터</b>로 움직여 가까이 있는 저신장 아동도 놓치지 않고 보도록 했습니다. 여기에 더해 <em>nav2 collision_monitor</em> 패키지(LiDAR 전방 0.40m·좌우 0.20m 정지구역)까지 함께 써서 <b>2중으로</b> 더 안전하게 대응합니다.</p></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">09</div></div>
+
+<style>.simpage .body{justify-content:flex-start;}.simpage .demorow{margin-bottom:6mm;}.simpage .demorow{gap:7mm;margin-bottom:5mm;} .simpage .democlip{height:38mm;}</style><div class="slide simpage" id="p10"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="lab">Planner Selection</span></div><div class="phase-title"><h2 class="kr">sim 정량 검증(rosbag)을 통한 우리 맵 환경에 맞는 planner/controller server 선정</h2><span class="en">Planner Selection</span><span class="pstep">06 / 07</span></div></div><div class="body"><div style="display:grid;grid-template-columns:0.8fr 1.35fr;gap:8mm;align-items:start;height:100%">
+<div>
+<img class="zoomable" src="https://images.prismic.io/asd0821/RxD-ewkDRsS5z515_sim_doe_design.png?auto=format,compress" alt="DOE 실험 설계" onclick="openMedia('https://images.prismic.io/asd0821/RxD-ewkDRsS5z515_sim_doe_design.png?auto=format,compress','image','DOE 실험 설계 — planner×controller 9조합')" style="cursor:zoom-in;width:92%;display:block;margin-bottom:1.5mm">
+<div class="imgcap kr" style="font-size:8.5px;text-align:left;margin-bottom:4mm">DOE 실험 설계 — 3 planner × 3 controller = 9 cells</div>
+<img class="zoomable" src="https://images.prismic.io/asd0821/CzHmldWDg6HEwx4y_sim_doe_result.png?auto=format,compress" alt="DOE 결과 (45 run)" onclick="openMedia('https://images.prismic.io/asd0821/CzHmldWDg6HEwx4y_sim_doe_result.png?auto=format,compress','image','DOE 결과 — 45 run 측정')" style="cursor:zoom-in;width:80%;display:block;margin-bottom:1.5mm">
+<div class="imgcap kr" style="font-size:8.5px;text-align:left">DOE 결과 — 9 cells × 5 reps = 45 run 측정</div>
+</div>
+<div>
+<div class="blk" style="margin-bottom:2mm"><div class="lbl">문제 상황</div><p class="def kr" style="font-size:13.5px">실물 테스트 <b>시간·공간이 부족</b> — 유치원 실증 전 주행 품질을 <b>정량적으로</b> 검증할 방법이 필요했고, 감(느낌)으로 고른 조합은 나중에 근거를 설명할 수 없다는 것도 문제였습니다.</p></div>
+<div class="blk" style="margin-bottom:2mm"><div class="lbl">접근 방법</div><p class="kr" style="font-size:12.5px">vertex는 실제 벽에서 충분히 떨어지도록 배치해뒀지만, 커스텀 planner가 지정한 <b>노드(vertex) 사이 간선(lane)을 얼마나 딱 붙어 추종</b>하는지는 planner·controller 조합마다 달라 검증이 필요했습니다.</p><p class="kr" style="margin-top:1.5mm;font-size:12.5px">실물 대신 <em>Gazebo</em>에서 <em>rosbag·log 기반 정량 검증</em> 체계를 만들어 <b>3개 planner(NavFn·Smac2D·ThetaStar) × 3개 controller(RPP·DWB·MPPI) = 9 cells</b>를 <b>5회씩 반복(45 run)</b> 비교했습니다. run마다 odom/cmd_vel Hz·freeze 여부를 가중합한 <b>reliability score</b>로 불안정한 run을 걸러내고, 부드러움은 <b>jerk RMS</b>로 정량화했습니다.</p></div>
+<div class="blk"><div class="lbl">결과</div><div class="metrics" style="gap:3mm"><div class="metric" style="padding:3.5mm"><div class="mv" style="font-size:18px">각저크 0.45</div><div class="mc kr" style="font-size:10.5px;margin-top:2px">RPP 부드러움 (DWB 0.81의 절반)</div></div><div class="metric" style="padding:3.5mm"><div class="mv" style="font-size:18px">30/30</div><div class="mc kr" style="font-size:10.5px;margin-top:2px">RPP·DWB 완주 (MPPI 0/15)</div></div></div><p class="kr" style="margin-top:1.5mm;font-size:11px">MPPI는 완주율 0/15로 자동 탈락, 남은 RPP·DWB 중 <b>ThetaStar+RPP</b>가 간선 추종·저크 모두 앞섰습니다. 실물에서의 3회 테스트 결과도 같은 경향 — <b>ThetaStar</b>는 경로를 바로바로 따라갔고, <b>Smac2D</b>는 노드 근처에서야 간선에 붙었습니다.</p></div>
+<div class="blk" style="margin-top:2mm"><div class="lbl">의사결정 · 트레이드오프</div><p class="kr" style="font-size:12px">9조합 전부 튜닝은 시간 폭발 → 동일 기본값 비교 후 <em>이긴 1개에만 집중 튜닝(노동 1/9)</em>.</p><div class="trade" style="margin-top:1.5mm"><div class="tb"><div class="tc get" style="padding:1.8mm 3mm"><div class="cl" style="font-size:9.5px;margin-bottom:0.8mm">얻은 것</div><p class="kr" style="font-size:11px;line-height:1.35">ThetaStar+RPP 확정 — 45회 데이터로 정당화, 튜닝 노동 1/9</p></div><div class="tc give" style="padding:1.8mm 3mm"><div class="cl" style="font-size:9.5px;margin-bottom:0.8mm">감수한 것 (Trade-off)</div><p class="kr" style="font-size:11px;line-height:1.35">최고속도 몇 초 포기(RPP 206s vs DWB 201s) — 아이 옆 주행은 속도보다 부드러움 우선</p></div></div></div></div>
+</div>
+</div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">10</div></div>
+
+<!-- 11 핑더 회고 -->
+<div class="slide" id="p11"><div class="phd"><div class="top"><span class="plabel">PROJECT 02</span><span class="ptitle kr">핑더가든 — ROS2 유치원 교육보조로봇</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="lab">Retrospective</span></div><div class="phase-title"><h2 class="kr">회고</h2><span class="en">Retrospective</span><span class="pstep">07 / 07</span></div></div><div class="body"><div class="retro"><div class="rc"><h4 class="kr">배운 점</h4><p class="kr">Nav2를 통째로 쓰기보다 필요한 계층만 자체 대체하는 판단, 그리고 의사결정을 감이 아니라 실험(DOE)으로 정당화하는 습관을 얻었습니다.</p></div><div class="rc"><h4 class="kr">아쉬운 점</h4><p class="kr">성능에 유리한 C++가 아니라 Python으로 구현한 점이 아쉽습니다. 또 시간과 복도라는 제한된 공간, 팀원 일정 지연이 겹쳐 다양한 실물 테스트를 충분히 못 했습니다.</p></div><div class="rc"><h4 class="kr">개선 사항</h4><p class="kr">성능 크리티컬 노드를 C++로 이전, 자동 도킹 접점 센서 통합, 실물에서 CPU·지연 등 미측정 지표 계측.</p></div><div class="rc"><h4 class="kr">다시 한다면</h4><p class="kr">DOE를 실물에서도 반복해 시뮬레이션↔실물 격차를 정량화하고, 테스트 공간을 먼저 확보하겠습니다.</p></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">11</div></div>
+
+<!-- ============ 쑈삥끼 ============ -->
+<!-- 12 쑈삥끼 소개 -->
+
+
+<!-- ============ 쑈삥끼 (독립본 · 6p 구조) ============ -->
+<!-- 01 소개 -->
+<div class="slide" id="p12"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span><span class="pperiod">2026.03.30 – 04.26 · 약 4주</span></div><div class="pnav"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">소개</span></div><div class="phase-title"><h2 class="kr">소개</h2><span class="en">Overview</span><span class="pstep">01 / 06</span></div></div><div class="body"><div class="pov" style="grid-template-columns:1fr 1.05fr;gap:10mm;align-items:start"><div><div class="kvb"><div class="kk">프로젝트 주제</div><p class="kr" style="font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.5">Pinky Pro 로봇 기반 <em>미니어처 마트 스마트 쇼핑 카트</em> 시스템</p><p class="kr" style="font-size:13.5px;line-height:1.6;color:var(--sub);margin-top:2.5mm">고객(데모=인형)을 인식·추종하며 상품 검색·안내·결제·충전소 복귀까지 자동 처리하는 자율주행 <b>다중 로봇(Fleet)</b> 데모.</p><div class="kr" style="font-size:9.5px;color:var(--faint);margin-top:2.5mm">에드인에듀 자율주행 2팀 · 188×141cm 매장 · 로봇 2대(#54 · #18) 동시 운용</div></div><div class="stacklbl" style="margin-top:4mm">사용 기술</div><span class="chip">ROS2 Jazzy</span><span class="chip">Nav2</span><span class="chip">YOLO11n-seg</span><span class="chip">ReID(OSNet) · HSV</span><span class="chip">BT</span><span class="chip">NCNN · Pi 5</span><span class="chip">PyQt5</span></div><div><div class="kvb"><div class="kk">프로젝트 배경</div><ul class="bglist"><li class="kr">마트 쇼핑의 불편 — 무거운 카트를 직접 끌고, 상품 위치를 몰라 헤매는 문제</li><li class="kr">실내 자율주행 + 사람 추종 + 다중 로봇 조정 난제를 <b>저비용 소형 플랫폼(Pinky Pro + Pi 5)</b>으로 구현 가능성 검증</li><li class="kr">Open-RMF 없이 <b>자체 그래프 라우팅 + 레인 예약</b>으로 다중 로봇 경로 충돌 해결을 기술 도전 과제로 설정</li></ul></div><div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (삥끼랩)</b></div><ul class="roles"><li class="kr"><b>상태전이 로직</b> — 10개 상태 WAITING·LOCKED·RETURNING 전환 설계, 세션 생명주기(멱등성·만료 자동정리)</li><li class="kr"><b>QR 결제 앱 전반</b> — customer_web(Flask·SocketIO) 손님 앱, QR 스캔·장바구니·결제·대기 흐름</li><li class="kr"><b>관제 앱 기능</b> — admin_ui(PyQt5) 로봇 위치보정(시뮬↔실물 단일 명령)·디버깅 편의</li><li class="kr"><b>추종</b>(기여도 30%) — YOLO11n-seg·ReID/HSV·P 추종제어 팀 파이프라인 기여</li></ul></div><div class="kvb"><div class="kk">관련 링크</div><p class="kr" style="font-size:9.5px">GitHub <a href="https://github.com/addinedu-physicalai-1st/ros-repo-2">ros-repo-2</a></p></div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">12</div></div>
+
+<!-- 02 System Architecture -->
+<div class="slide archstate" id="p13"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Architecture · State</span></div><div class="phase-title"><h2 class="kr">시스템 아키텍처 · State Diagram</h2><span class="en">Architecture &amp; State</span><span class="pstep">02 / 06</span></div></div><div class="body"><div class="twoimg" style="gap:8mm"><div><div class="imgwrap" style="height:72mm"><img class="zoomable" src="https://images.prismic.io/asd0821/on-aOEAyWV2cAdNZ_shop_arch.png?auto=format,compress" alt="쑈삥끼 시스템 아키텍처"></div><div class="imgcap kr">시스템 아키텍처</div></div><div><div class="imgwrap" style="height:72mm"><img class="zoomable" src="https://images.prismic.io/asd0821/UXQj_8Zhkoo0l2_O_shop_state.png?auto=format,compress" alt="쑈삥끼 상태 다이어그램"></div><div class="imgcap kr">상태 다이어그램 — 10 states</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9mm;margin-top:3mm"><div><div class="lbl">구성 개요</div><ul class="ilist"><li class="kr"><b>브라우저</b> ─SocketIO→ <b>customer_web</b> ─TCP/REST→ <b>control_service</b></li><li class="kr"><b>control_service</b> ─ROS→ Pinky #54/#18(SM+BT+Nav2+Perception) · <b>ai_service</b> LLM</li><li class="kr"><b>PostgreSQL+pgvector</b> 통합 · <b>admin_ui(PyQt5)</b>+fleet_router로 2대 조정</li></ul><div class="note kr" style="margin-top:2mm;background:var(--panel);border-left:2px solid var(--accent);padding:2mm 3mm;border-radius:0 8px 8px 0;font-size:11px">제 담당은 <b>control_service·상태머신·손님/관제 앱</b>입니다. (추종 비전은 팀원 담당)</div></div><div><div class="lbl">State 흐름 (10 states)</div><ul class="ilist"><li class="kr">로그인 → <b>추종</b> → 안내 → 장바구니 → <b>대기</b> → 결제 → <b>복귀</b></li><li class="kr"><b>대기(WAITING)</b> 300초 자동 복귀 · <b>잠금(LOCKED)</b> 미결제 시 진입, 세션종료 차단</li><li class="kr"><b>복귀(RETURN)</b> 세션 종료 후 도킹 스테이션 자동 복귀</li></ul><div class="note kr" style="margin-top:2mm;background:var(--panel);border-left:2px solid var(--accent);padding:2mm 3mm;border-radius:0 8px 8px 0;font-size:11px">상태 <b>진입 조건·멱등성</b>을 규칙으로 명세해 상태머신 무결성을 확보했습니다.</div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">13</div></div>
+
+<div class="slide" id="p14"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">What I Did · State &amp; Admin</span></div><div class="phase-title"><h2 class="kr">상태전이 로직 · 관제 앱 기능</h2><span class="en">What I Did</span><span class="pstep">03 / 06</span></div></div><div class="body"><div class="ps"><div><div class="lbl">상태전이 로직</div><p class="note kr"><b>State Diagram 설계부터 상태 전환 로직 구현까지 직접 담당</b>했습니다. 실제 <b>10개 상태</b> — CHARGING · IDLE · TRACKING · TRACKING_CHECKOUT · GUIDING · SEARCHING · <b>WAITING</b> · <b>LOCKED</b> · <b>RETURNING</b> · HALTED</p><ul class="ilist" style="margin-top:2.5mm"><li class="kr"><b>WAITING → RETURNING</b> 타임아웃(<b>300초=5분</b>)을 설정값 하나(WAITING_TIMEOUT)로 중앙화해 전 구간에서 일관 적용</li><li class="kr"><b>LOCKED</b>는 WAITING에서만 진입 가능 — 미결제 카트가 임의 상태로 새지 않도록 진입 경로를 제한해 무결성 확보, staff_resolved로만 해제</li><li class="kr"><b>BoundaryMonitor</b>(checkout_zone_guard.py)로 결제구역 진입을 감지해 TRACKING → TRACKING_CHECKOUT 전이</li></ul></div><div><div class="lbl">관제 앱 기능</div><p class="note kr"><b>상태 강제 전이·로봇 위치 보정</b> 등을 admin_ui(PyQt5)에 지원해, <b>주행을 담당하는 팀원이 직접 디버깅</b>할 수 있게 만들었습니다.</p><ul class="ilist" style="margin-top:2.5mm"><li class="kr"><b>맵 클릭 이동 명령</b>(admin_goto) — 지도에서 위치를 클릭하면 그 좌표로 바로 이동 명령 전송</li><li class="kr"><b>구역 선택 안내 이동</b> — IDLE 상태에서 구역을 골라 GUIDING을 즉시 트리거</li><li class="kr"><b>위치보정</b>(시뮬 Gazebo 자세+AMCL / 실물 initialpose)은 <b>CHARGING·IDLE 상태에서만 활성화</b>되도록 버튼을 가드 — 주행 중 오조작 방지</li><li class="kr">WAITING·RETURNING·staff_resolved 등 <b>상태 강제 전이 버튼</b>으로 주행 담당자가 원하는 상태에서 바로 재현·디버깅 가능</li><li class="kr">로봇별 last_seen(마지막 통신 경과)·대기 상태를 카드에 실시간 표시</li></ul></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">14</div></div>
+
+<div class="slide" id="p15"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="lab">What I Did · Payment &amp; Follow</span></div><div class="phase-title"><h2 class="kr">QR 결제 앱 전반 기능 · 추종</h2><span class="en">What I Did</span><span class="pstep">04 / 06</span></div></div><div class="body"><div class="ps"><div><div class="lbl">QR 결제 앱 전반 기능</div><p class="note kr">customer_web(Flask·SocketIO) — <b>손님용 웹앱 전반</b>을 직접 구현</p><ul class="ilist" style="margin-top:2.5mm"><li class="kr"><b>QR 상품 스캔 · 장바구니</b> — 스캔 즉시 서버 반영, 다른 화면과 <b>SocketIO 실시간 동기화</b></li><li class="kr"><b>QR 결제 흐름</b> — 장바구니 확정 → 결제 QR 생성 → 완료 콜백까지 end-to-end</li><li class="kr"><b>대기 카운트다운 · 자동 복귀 UI</b> — WAITING 진입 시 서버의 WAITING_TIMEOUT(300초)과 동기화된 카운트다운 표시</li></ul></div><div><div class="lbl">추종 <span style="font-size:9px;color:var(--faint);font-weight:600">· 팀 파이프라인 기여</span></div><p class="note kr">팀 추종 파이프라인(YOLO 검출 → ReID/HSV 식별 → P 제어)에 <b>기술 검토·통합 기여</b> — 아래는 실제 코드 기준 파이프라인입니다.</p><ul class="ilist" style="margin-top:2mm;font-size:11.5px"><li class="kr"><b>검출</b> — YOLO로 등록된 인형(고객 대역)을 인식, 신뢰도 <b>0.42</b> 이상만 채택(등록 단계는 0.20로 완화)</li><li class="kr"><b>재식별</b> — <b>ReID cosine ≥ 0.48 AND HSV 히스토그램 상관 ≥ 0.38</b> 동시 만족 시에만 동일인 판정. ReID는 <b>OSNet x0.25 → (실패 시) MobileNetV3-Small → (torch 없으면) 6-float 색상통계</b> 3단 폴백</li><li class="kr"><b>추적 락</b> — <b>IoU Tracker(ByteTrack 유사)</b>로 5프레임 연속 매칭 시 track_id 고정, 이후 ReID 연산을 생략하는 빠른 경로로 전환</li><li class="kr"><b>온라인 갤러리 확장(multi-shot)</b> — 30프레임마다 갤러리 최대 유사도가 0.94 미만이면 새 특징벡터 추가(최대 50개), 뒷모습 등 각도·조명이 달라져도 계속 학습해 놓치지 않음</li><li class="kr"><b>제어</b> — 이름은 PID지만 실제 게인은 <b>각도 순수 P(Kp=0.0010)</b>, <b>거리 P+미세 I(Kp=0.0030, Ki=0.0001)</b>로 사실상 P 제어. 목표 거리는 bbox 크기(360px) 기준, 40프레임 연속 미검출 시 SEARCHING 전환</li></ul></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">15</div></div>
+
+
+
+<!-- 05 문제해결 -->
+<div class="slide" id="p16"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="lab">Problem Solving</span></div><div class="phase-title"><h2 class="kr">문제 해결</h2><span class="en">Problem Solving</span><span class="pstep">05 / 06</span></div></div><div class="body"><div class="ps"><div><div class="lbl">이탈 차단</div><div class="blk"><div class="stacklbl">문제 정의</div><p class="def kr">미결제 고객이 결제구역을 지나 출구로 이탈할 수 있는 구조적 허점. 상태만으로 막으면 추종 로직과 결합도가 높아집니다.</p></div><div class="blk"><div class="stacklbl">해결 접근</div><p class="kr">여러 방법을 고민하다 상태(SM)와 통행제어(Nav2)를 <em>분리</em>하는 쪽으로 설계해 직접 구현했습니다.</p><ul class="ilist"><li class="kr"><b>BoundaryMonitor</b>(AMCL 위치 기반)가 결제구역 진입·이탈을 감시</li><li class="kr">이탈 시도 시 <b>has_unpaid_items()</b> 판정에 따라 <em>Keepout Filter</em>(Nav2 costmap 플러그인)를 동적으로 on/off해 통행 차단</li><li class="kr">BT가 ~10Hz로 계속 폴링해도 REST 스팸이 안 나도록 판정 결과를 <b>1.5초 캐시</b></li></ul></div></div><div><div class="lbl">추종 협업 — 주인 식별(ReID+HSV)</div><div class="blk"><div class="stacklbl">문제 정의</div><p class="def kr">여러 인형 중 <b>주인 인형만</b> 골라 추종해야 하는데 ReID 특징벡터 단독은 유사 인형을 <b>오인식</b>. Pi 5 CPU로 무거운 CNN 상시 구동도 부담.</p></div><div class="blk"><div class="stacklbl">해결 접근</div><p class="kr">ReID 코사인 <em>AND</em> HSV 색 분포(Pearson 상관계수)의 <em>AND 게이트</em>(reid≥0.48 · hsv≥0.38)로 오인식을 줄였습니다.</p><ul class="ilist"><li class="kr">Pi 5 제약엔 <em>torch 미설치 시 6-float 색상통계 fallback</em> 설계로 엣지 대응</li><li class="kr"><b>IoU Tracker</b>로 5프레임 연속 매칭 시 track_id를 잠가 매 프레임 재식별 연산 생략</li><li class="kr">30프레임마다 갤러리를 갱신하는 <b>온라인 갤러리 확장(multi-shot)</b>으로 뒷모습·조명 변화에도 대응</li></ul></div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">16</div></div>
+
+<!-- 06 회고 -->
+<div class="slide" id="p17"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="lab">Retrospective</span></div><div class="phase-title"><h2 class="kr">회고</h2><span class="en">Retrospective</span><span class="pstep">06 / 06</span></div></div><div class="body"><div class="retro"><div class="rc"><h4 class="kr">배운 점</h4><p class="kr">상태(SM)와 통행제어(Nav2)를 분리해 결합도를 낮추는 설계 감각을 얻었고, ReID·HSV처럼 성격이 다른 두 신호를 AND 게이트로 묶어 오인식을 줄이는 방식을 실전에서 검증했습니다. 이 프로젝트를 기점으로 그동안 제가 한 일을 되짚어 정리해보는 계기가 되었고, 감이 아닌 <b>정량 성능 측정의 중요성</b>을 깨달았습니다.</p></div><div class="rc"><h4 class="kr">아쉬운 점</h4><p class="kr">CPU·지연·인식 정확도 같은 정량 성능을 측정하지 못해, 개선 효과를 수치로 보여주지 못한 점이 아쉽습니다.</p></div><div class="rc"><h4 class="kr">개선 사항</h4><p class="kr">결제 감지 지연·UI 반영 지연 등 핵심 경로에 측정 로그를 추가하고, ReID 파이프라인의 Pi 5 실측(FPS·지연)까지 남기고 싶습니다.</p></div><div class="rc"><h4 class="kr">다시 한다면</h4><p class="kr">다음부터는 감이 아니라 <b>정량 성능을 먼저 측정</b>하고, 그 수치를 판단 기준 삼아 개발해 나가겠습니다.</p></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">17</div></div>
+
+
+
+<!-- ============ ABA (Arte Book Assistance) ============ -->
+<!-- 01 소개 -->
+<div class="slide teamfull" id="p18"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span><span class="pperiod">2026.06.15 – 08.10 · 9주 (Team ARTE)</span></div><div class="pnav"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">소개</span></div><div class="phase-title"><h2 class="kr">소개</h2><span class="en">Overview</span><span class="pstep">01 / 06</span></div></div><div class="body">
+<div class="pov" style="grid-template-columns:1fr 1.05fr;gap:10mm;align-items:start">
+<div>
+<div class="kvb"><div class="kk">프로젝트 주제</div><p class="kr" style="font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.5">사서를 <em>대체하지 않고</em> 사서의 손과 다리가 되는 <em>협동로봇</em></p><p class="kr" style="font-size:13.5px;line-height:1.6;color:var(--sub);margin-top:2.5mm">주행로봇+로봇팔로 <em>서가에서 책을 직접 집어</em> 이송·분류·진열하고, 이용자를 추종해 짐을 옮기는 <em>사서 협동로봇</em>.</p></div>
+<div class="stacklbl" style="margin-top:4mm">사용 기술</div>
+<span class="chip">ROS2 Jazzy</span><span class="chip">Nav2</span><span class="chip">SLAM</span><span class="chip">Qt QML · C++</span><span class="chip">FMS</span>
+</div>
+<div>
+<div class="kvb"><div class="kk">프로젝트 배경</div><ul class="bglist"><li class="kr">사서의 <b>반복 업무</b>(배달·반납·정렬·재고 확인) 과중 — 핵심 업무 집중 필요</li><li class="kr">야간 무인 시간대의 <b>관리·보안 공백</b> — 침입 감지</li><li class="kr">주행·매니퓰레이션·AI를 엮은 <b>서비스형 로봇의 실사용 검증</b> 필요</li></ul></div>
+<div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (Team ARTE)</b> · 본인 <b>팀장</b> · 주 1회 스프린트 운영</div><ul class="roles"><li class="kr"><b>전반 설계 주도</b> — 요구사항·아키텍처·시퀀스·State 다이어그램</li><li class="kr"><b>LiBi GUI</b> — Qt QML + C++ 로봇 터치패널 구현(길잡이·검색·추천·표정·비상정지)</li><li class="kr"><b>FMS 설계</b> — 배차(Greedy+Cost)·교통 충돌 협상 알고리즘 (sim slotcar plugin)</li><li class="kr"><b>추종(짐꾼)</b> — 추종·재탐색 요구사항 정의</li><li class="kr"><b>순찰</b> — 15분마다 1대가 전체 순찰, 침입 감지 시 녹화·관리자 알림</li><li class="kr"><b>정밀주행</b> — Nav2 파라미터·ArUco 마커·Line tracing 협업 지원 (담당 인경일)</li><li class="kr"><b>Jira 관리</b> — 팀장으로 8개 스프린트 이슈 추적</li></ul></div>
+<div class="kvb"><div class="kk">관련 링크</div><p class="kr" style="font-size:9.5px">GitHub <a href="https://github.com/addinedu-roscamp-13th/roscamp-repo-2">roscamp-repo-2</a></p></div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">18</div></div>
+
+
+<!-- 03 System Architecture -->
+<div class="slide archstate" id="p19"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Architecture · State</span></div><div class="phase-title"><h2 class="kr">시스템 아키텍처 · State Diagram</h2><span class="en">Architecture &amp; State</span><span class="pstep">02 / 06</span></div></div><div class="body"><div class="twoimg" style="gap:8mm"><div><div class="imgwrap" style="height:72mm"><img class="zoomable" src="https://images.prismic.io/asd0821/frZk3dG1XgCvWgiS_aba_arch_sw.png?auto=format,compress" alt="ABA SW 아키텍처"></div><div class="imgcap kr">Software Architecture — 3계층</div></div><div><div class="imgwrap" style="height:72mm"><img class="zoomable" src="https://images.prismic.io/asd0821/xDjuiCACntur7nh7_aba_state.png?auto=format,compress" alt="ABA State Diagram (FSM)"></div><div class="imgcap kr">FSM — Operation + Task States</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9mm;margin-top:3mm"><div><div class="lbl">데이터 흐름 · 통신</div><ul class="ilist"><li class="kr"><b>요청(HTTP·REST)</b> 이용자·사서 → ABA Web/Server, 작업 생성·로봇 배정</li><li class="kr"><b>제어(ROS2·DDS)</b> 서버 명령 → Libi 내부 노드가 주행·로봇팔 제어</li><li class="kr"><b>피드백(WS)</b> fsm_state·진행률 실시간 push · <b>인식(TCP·UDP)</b> book_detector→classifier</li></ul></div><div><div class="lbl">State (운영 + 작업)</div><ul class="ilist"><li class="kr"><b>운영</b> — CHARGING · IDLE · PATROL/SECURITY_PATROL · RETURNING · ERROR</li><li class="kr"><b>작업</b> — GUIDE 길잡이 · TRANSPORT 이송 · SORTING 분류 · FOLLOW 추종(짐꾼)</li><li class="kr">전이 — battery_low(≤15%) · patrol_request · task_request/done · fault·estop → <b>ERROR</b></li></ul></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">19</div></div>
+
+<div class="slide" id="p20"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Sequence Diagram</span></div><div class="phase-title"><h2 class="kr">시퀀스 다이어그램</h2><span class="en">Sequence</span><span class="pstep">03 / 06</span></div></div><div class="body">
+<div class="twoimg">
+<div><div class="imgwrap" style="height:93mm"><img class="zoomable" src="https://images.prismic.io/asd0821/58ySsWwWd6KRoXE8_aba_seq_delivery.png?auto=format,compress" alt="이송 시퀀스"></div><div class="imgcap kr">이송 명령 — 요청·경로계획 → 서가 파지(실패 시 최대 3회) → 배치</div></div>
+<div><div class="imgwrap" style="height:93mm"><img class="zoomable" src="https://images.prismic.io/asd0821/LpHd1fisDsR0ZWTs_aba_seq_sorting.png?auto=format,compress" alt="분류 시퀀스"></div><div class="imgcap kr">분류 — 수거함 적재(arm swap) → 청구기호 판정 반복 분류</div></div>
+</div>
+<div class="note kr" style="margin-top:3mm;text-align:center;font-size:8.6px;color:var(--faint)">진행 중 fsm_state · 진행률을 회원 화면에 WebSocket 실시간 전송 · AI: book_detector → book_classifier → arm_controller · 설계 · 본인</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">20</div></div>
+
+<div class="slide" id="p21"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="lab">Progress · LiBi GUI</span></div><div class="phase-title"><h2 class="kr">진행 상세 — LiBi GUI</h2><span class="en">Libi GUI</span><span class="pstep">04 / 06</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:1fr 1fr;gap:9mm;align-items:start">
+<div>
+<div class="imgwrap" style="height:94mm;background:#111"><img src="https://images.prismic.io/asd0821/V6uMqUFQ6-g27MZL_aba_gui_libi.png?auto=format,compress" alt="Libi GUI 터치패널"></div>
+<div class="imgcap kr">Libi GUI — 로봇 터치패널(desktop_gui) · 상단바(상태·비상정지·배터리) · 표정 · 길잡이/검색/추천</div>
+</div>
+<div>
+<div class="lbl">구현 — C++ + QML</div>
+<ul class="ilist">
+<li class="kr"><b>QML</b> — 선언형 UI: 상단바 · 표정 애니메이션 · 길잡이/검색/추천 카드 · 상태칩</li>
+<li class="kr"><b>C++</b> — 화면 로직 · 상태 관리 · ROS2 노드 연동 (fsm_state 수신 · 명령 송신)</li>
+<li class="kr"><b>관리자 모드</b> — 로그인 후 목표점 이동 · 에러 현장 수동 조작</li>
+<li class="kr"><b>대기·홈</b> — 인사 · 표정 · 순회 중 표시 · 친밀감 인터랙션</li>
+<li class="kr"><b>안전</b> — 비상정지 · 배터리 · 현재 작업/상태 실시간 표시</li>
+</ul>
+<div class="note kr" style="margin-top:4mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0;font-size:9px">로봇 터치패널 전체를 <b>C++ + QML</b>로 직접 구현 — QML로 화면, C++로 상태·ROS2 통신을 담당</div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">21</div></div>
+
+<!-- 09 진행 상세: FMS -->
+<div class="slide teamfull fmscompact" id="p22"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="lab">Progress · FMS</span></div><div class="phase-title"><h2 class="kr">진행 상세 — FMS (Fleet Management)</h2><span class="en">Fleet Mgmt</span><span class="pstep">05 / 06</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:0.95fr 1.4fr;gap:9mm;align-items:start">
+<div>
+<div class="lbl" style="font-size:12.5px;letter-spacing:.1em">전체 흐름</div>
+<div class="fmsflow">
+<div class="fmsstep">UI</div>
+<div class="fmsarrow">HTTP / WS ↓</div>
+<div class="fmsstep">aba_service <span class="fmssub">FastAPI</span></div>
+<div class="fmsarrow">ROS 서비스 /fms/submit_task — 응답형(거절 여부를 바로 알아야 함) ↓</div>
+<div class="fmsgroup">
+<div class="fmslabel">libi_fleet</div>
+<div class="fmsrow">
+<div class="fmschip"><b>Task Manager</b><span>주문 접수 (on_submit)</span></div>
+<div class="fmsarrow-h">→</div>
+<div class="fmschip"><b>Dispatcher</b><span>배차 알고리즘</span></div>
+<div class="fmsarrow-h">→</div>
+<div class="fmschip"><b>Fleet Adapter</b><span>아래로 분기</span></div>
+</div>
+<div class="fmsrow" style="margin-top:2.5mm;padding-left:12%">
+<div class="fmschip sub"><b>Traffic</b><span>교통 협상 알고리즘</span></div>
+<div class="fmschip sub"><b>path_request · perform_action</b><span>팔 후속 주문</span></div>
+</div>
+</div>
+<div class="fmsarrow">ROS Domain Bridge (같은 ROS_DOMAIN_ID) ↓</div>
+<div class="fmsrow">
+<div class="fmschip"><b>Drive Controller</b></div>
+<div class="fmsarrow-h">⇄ ROS통신 ⇄</div>
+<div class="fmschip"><b>Handy Controller</b></div>
+</div>
+</div>
+<p class="note kr" style="margin-top:4mm;font-size:10.5px;line-height:1.6">배차·교통 알고리즘은 <b>pluginlib로 런타임 교체</b>하며 Gazebo slotcar sim에서 검증 · C++ · ROS2. <b>FMS 자체엔 팔(arm) 관련 API가 없고</b>, 팔 제어는 Drive Controller 쪽 API로 처리됩니다.</p>
+</div>
+<div>
+<div class="lbl" style="font-size:12.5px;letter-spacing:.1em">배차 · Task Allocation</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:1fr 2.4fr"><div>방식</div><div>특징</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Greedy + Cost</div><div>즉시 최저 cost 로봇에 배정 · 구현 간단 · 실시간성 ↑, 전역 최적은 아님</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Hungarian</div><div>N×M 1:1 최적 매칭(batch) · 전역 최적, batch 주기 지연 존재</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Auction·CBBA</div><div>경매 입찰 · 분산 합의, 로봇 대수 늘어도 확장성 ↑</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>MILP·GA/ACO</div><div>전역 최적·근사 탐색, 대규모 fleet에 적합하나 연산 부담</div></div>
+</div>
+<div class="lbl" style="font-size:12.5px;letter-spacing:.1em;margin-top:3mm">교통 협상</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:1fr 2.4fr"><div>방식</div><div>특징</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Edge/Node Lock</div><div>노드 mutex · 서버 허가 + FIFO 큐로 충돌 원천 차단</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>우선순위 협상</div><div>task 우선순위로 한쪽이 양보 · 데드락 해소</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Dijkstra 예약</div><div>노드+시간창 예약, 사이클 감지(DFS)는 추후 구현 예정</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>CBS+A*·ORCA</div><div>시공간 사전계획 · 속도벡터 기반 회피, 계산량 큼</div></div>
+</div>
+</div>
+</div>
+
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">22</div></div>
+
+<!-- 10 진행 상세: 추종 -->
+<div class="slide" id="p23"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="lab">Progress · 추종</span></div><div class="phase-title"><h2 class="kr">진행 상세 — 추종 (짐꾼)</h2><span class="en">Following</span><span class="pstep">06 / 06</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:1fr 1.1fr;gap:9mm;align-items:start">
+<div>
+<div class="lbl">실측 장면 — 동일 모델 · 두 환경</div>
+<div class="fmsrow" style="gap:3mm">
+<div style="flex:1"><video autoplay loop muted playsinline src="https://asd0821.cdn.prismic.io/asd0821/OAnSbVT59QE77qZf_aba_ai_server.mp4" style="width:100%;height:44mm;object-fit:cover;display:block;border-radius:8px"></video><div class="imgcap kr" style="font-size:8px;text-align:left;margin-top:1mm">AI 서버 추론 (~19 FPS)</div></div>
+<div style="flex:1"><video autoplay loop muted playsinline src="https://asd0821.cdn.prismic.io/asd0821/_hAKKPP9gqMQWbSr_aba_ondevice.mp4" style="width:100%;height:44mm;object-fit:cover;display:block;border-radius:8px"></video><div class="imgcap kr" style="font-size:8px;text-align:left;margin-top:1mm">온디바이스 추론 (~5 FPS)</div></div>
+</div>
+<div class="lbl" style="margin-top:4mm">인식 모델 — YOLOv8</div>
+<ul class="ilist">
+<li class="kr"><b>모델</b> — YOLOv8n(nano) · 100 epochs · best = epoch 72</li>
+<li class="kr"><b>데이터</b> — 635장 (pinky_pro 354 + person 281) · 2 클래스</li>
+<li class="kr"><b>파이프라인</b> — 탐지(YOLOv8) → 추적(ByteTracker) → 재식별(HSV) → 제어(PI/P)</li>
+</ul>
+<div class="note kr" style="margin-top:2.5mm;background:var(--panel);border-left:2px solid var(--accent);padding:2.5mm 3.5mm;border-radius:0 8px 8px 0;font-size:8.5px">동일 모델을 두 환경에서 실측 — 엣지=<b>NCNN 경량(imgsz 320·threads 4)</b>, 서버=<b>full PyTorch(GPU)</b>, 영상은 <b>UDP</b> 전송</div>
+</div>
+<div>
+<div class="lbl">실측 — 온디바이스(Pi4) vs AI 서버</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:1.15fr 1fr 1fr"><div>지표</div><div>온디바이스<br>(Pi4 CPU)</div><div>AI 서버<br>(GPU·UDP)</div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>FPS</b></div><div>4.96</div><div><b>19.09</b></div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>e2e 지연 평균</b></div><div>182 ms</div><div><b>21.0 ms</b></div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>지연 p95</b></div><div>274 ms</div><div><b>23.6 ms</b></div></div>
+<div class="rtr mine" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>Pi CPU 사용률</b></div><div>85.3%</div><div><b>30.4%</b></div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>Pi 온도</b></div><div>62.7 ℃</div><div>54.3 ℃</div></div>
+</div>
+<div class="note kr" style="margin-top:3.5mm;background:var(--accent-bg);border-left:2px solid var(--accent);padding:3.5mm 4.5mm;border-radius:0 8px 8px 0"><b style="color:var(--accent)">결정</b> — 온디바이스는 <b>Pi CPU 85% 포화</b>로 자율주행 <b>Nav2와 자원 경합</b> → 추론을 <b>AI 서버로 offload</b>해 <b>FPS 4배 · 지연 1/9 · CPU 여유</b> 확보</div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">23</div></div>
+
+<div class="slide" id="p24"><div class="body closing"><div class="cl-lead">Thank You</div><div class="cl-q kr">기능을 구현하는 것을 넘어,<br><em>설계의 이유를 설명할 수 있는</em> 개발자가 되겠습니다.</div><div class="cl-give"><div class="cl-give-h">제가 기여할 수 있는 것</div><ul class="cl-give-list"><li>ROS2 기반 <b>자율주행 시스템 및 패키지</b> 개발 경험</li><li>Navigation2 · <b>Behavior Tree</b> 설계·구현 경험</li><li>Qt/QML 기반 <b>관제 · UI</b> 개발 경험</li><li>실제 로봇 프로젝트를 통한 <b>문제 해결</b> 경험</li><li>새로운 기술을 빠르게 <b>학습·적용</b>하는 역량</li></ul></div><div class="cl-role">Robotics Engineer</div><div class="cl-name"><div class="nm">이강택</div><div class="info"><a href="mailto:dlrkdxor0821@gmail.com">dlrkdxor0821@gmail.com</a>　·　<a href="tel:+821036850675">010-3685-0675</a>　·　<a href="https://github.com/dlrkdxor0821">github.com/dlrkdxor0821</a></div></div></div><div class="pgname">Portfolio · 이강택</div><div class="pg">24</div></div>
+
+<div id="tocModal" class="toc-modal"><div class="toc-modal-box"><div class="toc-modal-h">목차 · Index<span>T 눌러 열기/닫기 · Esc</span></div><a href="#p03" class="toc-modal-item"><b>01</b>Profile</a><a href="#p04" class="toc-modal-item"><b>02</b>Projects at a glance</a><a href="#p05" class="toc-modal-item"><b>03</b>핑더가든 </a><a href="#p12" class="toc-modal-item"><b>04</b>쑈삥끼</a><a href="#p18" class="toc-modal-item"><b>05</b>ABA (Arte Book Assistance) <span class="live">진행중</span></a><a href="#p24" class="toc-modal-item"><b>06</b>Closing</a></div></div><script>
+(function(){
+  var modal=document.getElementById('tocModal');
+  document.querySelectorAll('.tocrow').forEach(function(r){
+    var tp=r.querySelector('.tp'); if(!tp)return; r.style.cursor='pointer';
+    r.addEventListener('click',function(){location.hash='#p'+tp.textContent.trim();});
+  });
+  document.querySelectorAll('.ov-page').forEach(function(o){
+    var m=o.textContent.match(/(\d+)/); if(!m)return; o.style.cursor='pointer';
+    o.addEventListener('click',function(){location.hash='#p'+('0'+m[1]).slice(-2);});
+  });
+  document.addEventListener('keydown',function(e){
+    var t=(e.target.tagName||'').toLowerCase(); if(t==='input'||t==='textarea')return;
+    if(e.key==='t'||e.key==='T'){e.preventDefault();modal.classList.toggle('open');}
+    else if(e.key==='Escape'){modal.classList.remove('open');}
+  });
+  modal.addEventListener('click',function(e){
+    if(e.target===modal||e.target.closest('.toc-modal-item')) modal.classList.remove('open');
+  });
+})();
+</script>
+
+<!-- State Diagram 확대 팝업 (on-screen only) -->
+<style>
+@media print{ .zoomhint,#stateModal{display:none!important;} }
+.zoomhint{position:absolute;bottom:6px;right:8px;font-size:8.5px;color:var(--sub);background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:6px;padding:2px 7px;pointer-events:none;letter-spacing:.02em;}
+.imgwrap.statezoom{transition:box-shadow .15s;}
+.imgwrap.statezoom:hover{box-shadow:0 0 0 2px var(--accent);}
+.imgwrap:has(img.zoomable):hover{box-shadow:0 0 0 2px var(--accent);}
+#stateModal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,17,21,.86);padding:3vh 3vw;box-sizing:border-box;align-items:center;justify-content:center;}
+#stateModal.open{display:flex;}
+#stateModal .box{background:#fff;border-radius:14px;width:100%;max-width:96vw;max-height:94vh;display:flex;gap:2.4vw;padding:26px 30px;box-sizing:border-box;position:relative;box-shadow:0 24px 70px rgba(0,0,0,.55);}
+#stateModal .close{position:absolute;top:8px;right:14px;border:none;background:transparent;font-size:30px;line-height:1;color:var(--sub);cursor:pointer;}
+#stateModal .close:hover{color:var(--accent);}
+#stateModal .diagram{flex:1.55;min-width:0;display:flex;align-items:center;justify-content:center;}
+#stateModal .diagram img{max-width:100%;max-height:87vh;object-fit:contain;}
+#stateModal .tablewrap{flex:1;min-width:0;max-height:87vh;overflow-y:auto;}
+#stateModal .tablewrap .tt{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:2px 0 12px;}
+#stateModal table{border-collapse:collapse;width:100%;font-size:15px;}
+#stateModal th{background:var(--accent-bg);color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:9px 13px;position:sticky;top:0;}
+#stateModal td{padding:9px 13px;border-top:1px solid var(--line2);color:var(--sub);line-height:1.5;vertical-align:top;}
+#stateModal td:first-child{font-family:var(--mono),monospace;font-weight:700;color:var(--ink);white-space:nowrap;font-size:13.5px;}
+</style>
+<div id="stateModal" onclick="if(event.target===this)closeStateModal()">
+  <div class="box">
+    <button class="close" onclick="closeStateModal()" aria-label="닫기">×</button>
+    <div class="diagram"><img src="https://images.prismic.io/asd0821/GufSx4JEIzuXbkg__pingder_state.png?auto=format,compress" alt="GogoPing FSM 상태 다이어그램 (확대)"></div>
+    <div class="tablewrap"><div class="tt">State 정의</div><table><thead><tr><th>State</th><th>분류</th><th>설명</th></tr></thead><tbody><tr><td>IDLE</td><td>대기</td><td>충전 완료 후 사용자 명령 대기</td></tr><tr><td>CHARGING</td><td>충전</td><td>도킹 스테이션에서 충전 중, 사용자 명령 차단</td></tr><tr><td>GOTO</td><td>이동</td><td>지정 vertex로 자율 주행 이동</td></tr><tr><td>FOLLOW</td><td>추종</td><td>등록된 교사 1인을 추종</td></tr><tr><td>LULLABY</td><td>자장가 모드</td><td>자장가 mp3 재생</td></tr><tr><td>HIDEANDSEEK</td><td>숨바꼭질</td><td>숨바꼭질 워크플로우 진행 (장소 이동 → 등록 → 30초 대기 → 순찰 → 복귀)</td></tr><tr><td>MANUAL</td><td>수동 모드</td><td>모터 torque OFF (사람이 직접 손으로 밀 수 있음)</td></tr><tr><td>RETURNING</td><td>복귀</td><td>충전소로 복귀 (사용자 명령 / idle timeout / 작업 실패)</td></tr><tr><td>LOW_BATTERY_RETURNING</td><td>복귀 (긴급)</td><td>배터리 부족 긴급 복귀, 사용자 명령 차단 (lock down)</td></tr><tr><td>ERROR</td><td>종료</td><td>장애 발생 → 즉시 정지, 재시작 해야 복구</td></tr></tbody></table></div>
+  </div>
+</div>
+<script>
+function openStateModal(){document.getElementById('stateModal').classList.add('open');}
+function closeStateModal(){document.getElementById('stateModal').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeStateModal();});
+</script>
+
+<!-- 이미지 확대 라이트박스 (아키텍처 등 일반 다이어그램용) -->
+<style>
+.zoomable{cursor:zoom-in;}
+#imgLightbox{display:none;position:fixed;inset:0;z-index:1400;background:rgba(24,24,27,.82);align-items:center;justify-content:center;cursor:zoom-out;padding:4vh 4vw;}
+#imgLightbox.open{display:flex;}
+#imgLightbox img{max-width:96vw;max-height:92vh;object-fit:contain;background:#fff;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.55);cursor:zoom-in;}
+#imgLightbox.zoomed{overflow:auto;cursor:zoom-out;}
+#imgLightbox.zoomed img{max-width:none;max-height:none;width:auto;margin:0 auto;display:block;border-radius:0;box-shadow:none;}
+#imgLightbox .ilb-close{position:fixed;top:16px;right:26px;color:#fff;font-size:34px;line-height:1;cursor:pointer;opacity:.85;font-family:var(--sans);z-index:2;}
+#imgLightbox .ilb-close:hover{opacity:1;}
+#imgLightbox .ilb-hint{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);color:#b0b0b8;font-size:11px;font-family:var(--sans);letter-spacing:.02em;pointer-events:none;}
+#imgLightbox.zoomed .ilb-hint{display:none;}
+@media print{#imgLightbox{display:none !important;}}
+</style>
+<div id="imgLightbox" onclick="closeImgLightbox()"><span class="ilb-close" onclick="closeImgLightbox()">&times;</span><img id="imgLightboxImg" src="" alt=""><span class="ilb-hint">클릭할수록 더 확대 (최대 4단계) · Esc · 배경 클릭 닫기</span></div>
+<script>
+(function(){
+  var lb=document.getElementById('imgLightbox'), lbi=document.getElementById('imgLightboxImg');
+  var HEIGHTS=[0,130,200,290,400], lvl=0;
+  function apply(){
+    if(lvl===0){ lb.classList.remove('zoomed'); lbi.style.height=''; lb.scrollTo(0,0); }
+    else { lb.classList.add('zoomed'); lbi.style.height=HEIGHTS[lvl]+'vh'; }
+  }
+  window.openImgLightbox=function(img){ lbi.src=img.getAttribute('src'); lbi.alt=img.getAttribute('alt')||''; lvl=0; apply(); lb.classList.add('open'); };
+  window.closeImgLightbox=function(){ lb.classList.remove('open','zoomed'); lvl=0; lbi.style.height=''; lbi.removeAttribute('src'); };
+  lbi.addEventListener('click',function(e){ e.stopPropagation(); lvl=(lvl+1)%HEIGHTS.length; apply(); });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeImgLightbox();});
+  document.querySelectorAll('img.zoomable').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();openImgLightbox(img);});});
+})();
+</script>
+
+<!-- 데모 미디어 라이트박스 (on-screen) -->
+<style>
+.demorow{display:flex;gap:6mm;margin-bottom:5mm;flex-wrap:wrap;align-items:flex-start;}
+.democlip{position:relative;border:1px solid var(--line);border-radius:9px;overflow:hidden;cursor:zoom-in;background:#0b0b0d;height:40mm;flex:0 0 auto;line-height:0;}
+.democlip img{height:100%;width:auto;display:block;}
+.democlip .pbtn{position:absolute;inset:0;margin:auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(14,124,107,.92);color:#fff;border-radius:50%;font-size:13px;line-height:1;}
+.democlip .clab{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-size:9px;line-height:1.3;padding:3px 7px;letter-spacing:.02em;}
+.democlip:hover{box-shadow:0 0 0 2px var(--accent);}
+#mediaModal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,17,21,.88);padding:3vh 3vw;box-sizing:border-box;align-items:center;justify-content:center;}
+#mediaModal.open{display:flex;}
+#mediaModal .mbox{position:relative;max-width:94vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:10px;}
+#mediaModal .close{position:absolute;top:-4px;right:-4px;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:24px;width:38px;height:38px;border-radius:50%;cursor:pointer;line-height:1;}
+#mediaModal .close:hover{background:var(--accent);}
+#mediaModal #mediaBody video,#mediaModal #mediaBody img{max-width:92vw;max-height:82vh;border-radius:8px;display:block;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+#mediaModal .mcap{color:#e5e7eb;font-size:14px;letter-spacing:.02em;text-align:center;}
+@media print{ #mediaModal{display:none!important;} .democlip{cursor:default;} }
+</style>
+<div id="mediaModal" onclick="if(event.target===this)closeMedia()">
+  <div class="mbox"><button class="close" onclick="closeMedia()" aria-label="닫기">×</button><div id="mediaBody"></div><div id="mediaCap" class="mcap"></div></div>
+</div>
+<script>
+function openMedia(src,type,cap){
+  var m=document.getElementById('mediaModal'),b=document.getElementById('mediaBody');
+  if(type==='video'){b.innerHTML='<video src="'+src+'" controls autoplay playsinline loop></video>';}
+  else{b.innerHTML='<img src="'+src+'" alt="">';}
+  document.getElementById('mediaCap').textContent=cap||'';
+  m.classList.add('open');
+}
+function closeMedia(){var m=document.getElementById('mediaModal');m.classList.remove('open');document.getElementById('mediaBody').innerHTML='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMedia();});
+</script>
+</body></html>

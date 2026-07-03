@@ -1,0 +1,459 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{
+  --sans:'Noto Sans CJK KR','Noto Sans KR',sans-serif;
+  --serif:'Noto Serif CJK KR',serif;
+  --mono:'D2Coding','Consolas','Menlo',monospace;
+  --ink:#18181B; --sub:#52525B; --faint:#8A8A93;
+  --line:#E4E4E7; --line2:#F1F1F3;
+  --accent:#0E7C6B; --accent-bg:#ECF6F3;
+  --gold:#B8860B;
+  --bg:#FFFFFF; --panel:#FAFAFA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@page{size:A4 landscape;margin:0;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+.slide{width:297mm;height:210mm;position:relative;overflow:hidden;background:var(--bg);
+  page-break-after:always;display:flex;flex-direction:column;padding:20mm 24mm;}
+.slide:last-child{page-break-after:auto;}
+.kr{word-break:keep-all;}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:5mm;min-height:0;}
+.pgname{position:absolute;bottom:9mm;left:24mm;font-size:8px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;}
+.pg{position:absolute;bottom:9mm;right:24mm;font-size:8.5px;color:var(--faint);letter-spacing:.1em;}
+em{font-style:normal;color:var(--accent);font-weight:700;}
+.lbl{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:3mm;}
+.hd{display:flex;align-items:baseline;gap:13px;border-bottom:1px solid var(--line);padding-bottom:4mm;margin-bottom:6mm;}
+.hd .no{font-size:12px;font-weight:700;color:var(--accent);}
+.hd h2{font-size:21px;font-weight:800;}
+.hd .sub{margin-left:auto;font-size:9.5px;color:var(--faint);}
+/* project header */
+.phd{margin-bottom:5mm;}
+.phd .top{display:flex;align-items:baseline;gap:10px;}
+.phd .plabel{font-size:9px;font-weight:800;color:var(--accent);letter-spacing:.12em;white-space:nowrap;}
+.phd .ptitle{font-size:16px;font-weight:800;}
+.phd .repbadge{font-size:7.6px;color:#fff;background:var(--accent);border-radius:9px;padding:2px 8px;font-weight:700;align-self:center;white-space:nowrap;}
+.phd .live{font-size:7.6px;color:#fff;background:var(--gold);border-radius:9px;padding:2px 8px;font-weight:700;align-self:center;white-space:nowrap;}
+.phd .pperiod{margin-left:auto;font-size:9px;color:var(--faint);white-space:nowrap;}
+.pnav{display:flex;align-items:center;gap:5px;margin-top:4mm;}
+.pnav .dot{width:7px;height:7px;border-radius:50%;background:var(--line);}
+.pnav .dot.on{background:var(--accent);width:22px;border-radius:4px;}
+.pnav .lab{font-size:8px;color:var(--faint);margin-left:7px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
+.phase-title{display:flex;align-items:baseline;gap:11px;border-top:1px solid var(--ink);padding-top:4mm;margin-top:4mm;}
+.phase-title h2{font-size:20px;font-weight:800;}
+.phase-title .en{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;}
+.phase-title .pstep{margin-left:auto;font-size:9px;font-weight:800;color:var(--faint);letter-spacing:.08em;}
+.phase-desc{font-size:14px;color:var(--sub);margin-top:2mm;}
+.flag{font-size:8px;color:var(--faint);border:1px dashed var(--line);border-radius:6px;padding:2px 8px;margin-left:8px;align-self:center;}
+/* cover */
+.cv{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.cv .doc{font-size:9px;letter-spacing:.5em;color:var(--accent);font-weight:700;text-transform:uppercase;}
+.cv h1{font-size:60px;font-weight:800;margin-top:14px;line-height:1;}
+.cv h1 small{display:block;font-size:12px;letter-spacing:.5em;color:var(--faint);font-weight:600;margin-top:14px;}
+.cv .role{margin-top:22px;font-size:15px;color:var(--sub);font-weight:600;}
+.cv .tag{margin-top:12px;font-size:12.5px;color:var(--accent);font-style:italic;line-height:1.6;}
+.cv .ct{margin-top:26px;display:flex;justify-content:center;gap:24px;font-size:10px;color:var(--sub);}
+.cv .ct b{color:var(--faint);font-weight:700;margin-right:5px;}
+/* toc */
+.tocrow{display:flex;align-items:baseline;border-bottom:1px solid var(--line2);padding:5.5mm 0;}
+.tocrow:last-child{border-bottom:none;}
+.tocrow .tno{font-size:15px;font-weight:800;color:var(--accent);width:36px;}
+.tocrow .tt{font-size:13.5px;font-weight:700;}
+.tocrow .rep{font-size:7.2px;color:#fff;background:var(--accent);border-radius:9px;padding:1px 7px;margin-left:8px;font-weight:700;}
+.tocrow .live{font-size:7.2px;color:#fff;background:var(--gold);border-radius:9px;padding:1px 7px;margin-left:6px;font-weight:700;}
+.tocrow .td{margin-left:12px;font-size:9px;color:var(--faint);}
+.tocrow .tp{margin-left:auto;font-size:12px;color:var(--faint);font-weight:700;}
+.toc-intro{font-size:10.5px;color:var(--sub);line-height:1.6;margin-bottom:4mm;}
+.toc-intro b{color:var(--accent);font-weight:700;}
+/* overview */
+.ov-thesis{font-size:10.5px;color:var(--sub);line-height:1.6;text-align:center;max-width:205mm;margin:0 auto 8mm;}
+.ov-thesis em{color:var(--accent);font-weight:700;}
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8mm;}
+.ov-card{border:1px solid var(--line);border-radius:12px;padding:7mm 6.5mm;display:flex;flex-direction:column;min-height:98mm;}
+.ov-top{display:flex;align-items:center;gap:8px;}
+.ov-name{font-size:19px;font-weight:800;}
+.ov-top .live,.ov-top .rep{white-space:nowrap;}
+.ov-sub{font-size:11.5px;color:var(--sub);margin-top:2.5mm;}
+.ov-meta{font-size:9.5px;color:var(--faint);margin-top:5mm;padding-top:4mm;border-top:1px solid var(--line2);}
+.ov-role{font-size:10.5px;color:var(--ink);margin-top:3.5mm;line-height:1.55;}
+.ov-role b{color:var(--accent);font-weight:700;margin-right:5px;}
+.ov-line{font-size:10.5px;color:var(--sub);line-height:1.65;margin-top:4mm;flex:1;}
+.ov-tags{margin-top:4.5mm;}
+.ov-page{font-size:9.5px;color:var(--accent);font-weight:700;margin-top:5mm;text-align:right;}
+/* profile */
+.prof{display:grid;grid-template-columns:42mm 1fr 1.05fr;gap:11mm;align-items:start;}
+.photo{aspect-ratio:3.5/4.5;border-radius:8px;overflow:hidden;line-height:0;color:var(--faint);border:1px solid var(--line);margin-bottom:8mm;}
+.pc{font-size:9.8px;color:var(--sub);margin-bottom:5px;}
+.pc:first-of-type{margin-top:9mm;}
+.pc b{color:var(--faint);font-weight:700;margin-right:6px;}
+.summary{font-size:11px;line-height:1.85;color:var(--sub);}
+.summary em{color:var(--ink);}
+.str .it{padding:2.4mm 0;border-top:1px solid var(--line2);}
+.str .it:first-child{border-top:none;}
+.str h4{font-size:11.5px;font-weight:700;}
+.str h4::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;}
+.str p{font-size:9.9px;color:var(--sub);padding-left:14px;margin-top:1.5px;}
+.skcat{font-size:9.2px;font-weight:700;color:var(--sub);margin:3mm 0 1.8mm;}
+.skcat:first-child{margin-top:0;}
+.skrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.skrow .n{font-size:9px;}
+.bar{display:inline-block;width:74px;height:5px;border-radius:3px;background:var(--line);position:relative;vertical-align:middle;}
+.bar i{position:absolute;left:0;top:0;height:5px;border-radius:3px;background:var(--accent);}
+/* placeholder + chips */
+.ph{border:1.6px dashed var(--line);border-radius:12px;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--faint);gap:7px;}
+.ph .pl{font-size:11px;font-weight:700;color:var(--sub);}
+.ph .ps{font-size:8.6px;color:var(--faint);}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:16px;padding:4px 10px;font-size:10px;margin:0 4px 4.5px 0;color:var(--ink);}
+.stacklbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:0 0 3mm;}
+.rtbl{border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:4.5mm 0 1mm;}
+.rtr{display:grid;grid-template-columns:0.72fr 1.35fr 2fr;border-top:1px solid var(--line2);}
+.rtr:first-child{border-top:none;}
+.rtr.rth>div{font-weight:800;color:var(--accent);font-size:8.6px;letter-spacing:.06em;text-transform:uppercase;padding:2mm 3.5mm;background:var(--accent-bg);}
+.rtr>div{padding:3.4mm 4mm;font-size:12.5px;color:var(--sub);line-height:1.4;border-left:1px solid var(--line2);}
+.rtr>div:first-child{border-left:none;}
+.rtr b{color:var(--ink);font-weight:700;}
+.rtr.mine>div{background:#F2FBF8;}
+.rtr.mine b{color:var(--accent);}
+.bglist{list-style:none;margin-top:1mm;}
+.bglist li{font-size:12px;color:var(--sub);line-height:1.5;padding-left:15px;position:relative;margin-bottom:3.5mm;}
+.bglist li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.bglist li b{color:var(--ink);font-weight:700;}
+#p05 .kk{font-size:11px;}
+#p05 .teamline{font-size:13.5px;}
+#p05 .roles li{font-size:13.5px;margin-bottom:3.2mm;}
+#p05 .bglist li{font-size:13.5px;}
+.btpat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4mm 5mm;font-family:var(--mono);font-size:10px;line-height:1.75;white-space:pre;color:var(--sub);overflow:auto;}
+.btpat b{color:var(--accent);font-weight:700;}
+/* overview */
+.pov{display:grid;grid-template-columns:1.05fr 1.25fr;gap:11mm;align-items:center;}
+.kvb{margin-bottom:6mm;}
+.kvb .kk{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:2mm;}
+.kvb p{font-size:16.5px;color:var(--sub);line-height:1.6;}
+.kvb .goal{font-size:16.5px;color:var(--ink);font-weight:600;line-height:1.5;}
+.roles{list-style:none;}
+.roles li{font-size:15px;color:var(--ink);padding-left:16px;position:relative;margin-bottom:3mm;}
+.roles li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:2px;background:var(--accent);}
+.teamline{font-size:14px;color:var(--faint);margin-bottom:3.5mm;}
+.teamline b{color:var(--ink);font-weight:700;}
+/* features */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:7mm;}
+.feat.c3{grid-template-columns:1fr 1fr 1fr;}
+.fcard{border:1px solid var(--line);border-radius:12px;padding:6.5mm 6mm;}
+.fcard .fn{display:flex;align-items:baseline;gap:9px;}
+.fcard .fno{font-size:14px;font-weight:900;color:var(--accent);line-height:1;}
+.fcard h4{font-size:17px;font-weight:800;}
+.fcard p{font-size:15px;color:var(--sub);line-height:1.55;margin-top:2.2mm;padding-left:22px;}
+.frole{margin-top:4.5mm;font-size:13.5px;color:var(--faint);}
+.frole b{color:var(--accent);font-weight:700;margin-right:6px;}
+/* problem solving */
+.ps{display:grid;grid-template-columns:1fr 1.12fr;gap:11mm;align-items:start;}
+.blk{margin-bottom:7mm;}
+.blk p{font-size:16px;color:var(--sub);line-height:1.65;}
+.blk p.def{color:var(--ink);font-weight:600;}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6mm;}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6.5mm;}
+.metric .mv{font-size:26px;font-weight:800;color:var(--accent);line-height:1.1;}
+.metric .mc{font-size:13px;color:var(--sub);margin-top:5px;}
+.trade{border:1px solid var(--accent);border-radius:10px;overflow:hidden;margin-top:2.5mm;}
+.trade .tb{display:grid;grid-template-columns:1fr 1fr;}
+.trade .tc{padding:3mm 4mm;}
+.trade .tc:first-child{border-right:1px solid var(--line);}
+.trade .cl{font-size:11px;font-weight:800;letter-spacing:.05em;margin-bottom:1.5mm;}
+.trade .get .cl{color:var(--accent);}
+.trade .give .cl{color:var(--faint);}
+.trade p{font-size:13.5px;color:var(--sub);line-height:1.5;}
+/* retro */
+.retro{display:grid;grid-template-columns:1fr 1fr;gap:18mm 12mm;}
+.rc{padding-top:5mm;border-top:2px solid var(--accent);}
+.rc h4{font-size:17px;font-weight:800;}
+.rc p{font-size:15.5px;color:var(--sub);line-height:1.65;margin-top:2.2mm;}
+/* closing */
+.closing{display:flex;flex-direction:column;justify-content:center;height:100%;}
+.cl-lead{font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);font-weight:700;text-align:center;}
+.cl-q{font-size:26px;font-weight:800;text-align:center;margin-top:7mm;line-height:1.5;}
+.cl-q em{color:var(--accent);}
+.cl-cap{display:grid;grid-template-columns:repeat(3,1fr);gap:12mm;margin-top:15mm;padding-top:9mm;border-top:1px solid var(--line);}
+.cl-cap .c .k{font-size:9.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:3mm;}
+.cl-cap .c p{font-size:11px;color:var(--sub);line-height:1.72;}
+.cl-name{text-align:center;margin-top:8mm;}
+.cl-name .nm{font-size:34px;font-weight:800;}
+.cl-name .info{font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin-top:7px;}
+.cl-hero{font-size:25px;font-weight:800;text-align:center;line-height:1.55;letter-spacing:-.01em;margin-top:7mm;}
+.cl-hero em{color:var(--accent);}
+.cl-role{text-align:center;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-top:12mm;}
+.cl-give{margin-top:12mm;padding-top:8mm;border-top:1px solid var(--line);}
+.cl-give-h{text-align:center;font-size:9.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5mm;}
+.cl-give-list{list-style:none;max-width:100mm;margin:0 auto;}
+.cl-give-list li{font-size:11px;color:var(--sub);padding-left:18px;position:relative;line-height:1.5;margin-bottom:3.6mm;}
+.cl-give-list li:last-child{margin-bottom:0;}
+.cl-give-list li::before{content:"";position:absolute;left:0;top:5px;width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.cl-give-list li b{color:var(--ink);font-weight:700;}
+.cl-nm2{text-align:center;font-size:30px;font-weight:800;margin-top:5mm;}
+.cl-contact{text-align:center;font-size:9.5px;color:var(--faint);letter-spacing:.06em;margin-top:13mm;}
+</style>
+<style>
+/* ===== image / diagram slides ===== */
+.imgwrap{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:4mm;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.imgwrap img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+.imgcap{font-size:12px;color:var(--faint);text-align:center;margin-top:2mm;letter-spacing:.05em;}
+.twoimg{display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:stretch;}
+.imgtext{display:grid;grid-template-columns:1.35fr 1fr;gap:11mm;align-items:start;}
+.note{font-size:15px;color:var(--sub);line-height:1.6;}
+.note b{color:var(--accent);}
+.ilist{list-style:none;margin-top:2mm;}
+.ilist li{font-size:15px;color:var(--sub);padding-left:15px;position:relative;margin-bottom:2.6mm;line-height:1.5;}
+.ilist li::before{content:"";position:absolute;left:0;top:5px;width:6px;height:6px;border-radius:2px;background:var(--accent);}
+.ilist li b{color:var(--ink);font-weight:700;}
+/* folder / code block */
+.folder{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5mm 6mm;font-family:var(--mono);font-size:11.5px;line-height:1.85;white-space:pre;color:var(--sub);overflow:auto;}
+.folder b{color:var(--accent);font-weight:700;}
+.folder u{color:var(--gold);text-decoration:none;font-weight:700;}
+.folder s{color:var(--faint);text-decoration:none;}
+/* jira sprint mini board */
+.jira{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;}
+.spcol{border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+.spcol .sph{background:var(--accent-bg);padding:2.4mm 4mm;font-size:8.6px;font-weight:800;color:var(--accent);display:flex;justify-content:space-between;align-items:center;}
+.spcol .sph .stt{font-size:7px;font-weight:700;color:var(--faint);}
+.spcol .spb{padding:2.6mm 4mm 3mm;}
+.iss{font-size:8px;padding:1.5mm 0;border-top:1px solid var(--line2);display:flex;gap:5px;align-items:baseline;}
+.iss:first-child{border-top:none;}
+.iss .k{font-family:var(--mono);font-size:7px;color:var(--faint);white-space:nowrap;}
+.iss .t{color:var(--sub);line-height:1.3;}
+.iss.mine .t{color:var(--ink);font-weight:700;}
+.iss.mine .k{color:var(--accent);}
+.chipcloud .cc{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:2.5px 8px;font-size:8px;margin:0 4px 4px 0;color:var(--sub);}
+.chipcloud .cc.hi{border-color:var(--accent);color:var(--accent);font-weight:700;}
+.statrow{display:flex;gap:5mm;margin-bottom:4mm;}
+.statbox{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3.4mm 4mm;text-align:center;}
+.statbox .sv{font-size:24px;font-weight:800;color:var(--accent);line-height:1;}
+.statbox .sl{font-size:12.5px;color:var(--sub);margin-top:4px;}
+.skb{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:9.4px;margin:0 4.5px 5px 0;color:var(--sub);}
+.skset{margin-bottom:1mm;}
+.growth{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm;}
+.gstep{border-top:2px solid var(--line);padding-top:2.4mm;}
+.gstep.rep{border-top-color:var(--accent);}
+.gstep.live{border-top-color:var(--gold);}
+.gstep .gn{font-size:8.2px;font-weight:800;color:var(--accent);letter-spacing:.05em;}
+.gstep.live .gn{color:var(--gold);}
+.gstep h5{font-size:8.7px;font-weight:800;margin-top:1.4mm;}
+.gstep p{font-size:7.8px;color:var(--sub);line-height:1.42;margin-top:1.4mm;}
+.toc-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(24,24,27,.55);align-items:center;justify-content:center;}
+.toc-modal.open{display:flex;}
+.toc-modal-box{background:#fff;border-radius:16px;padding:30px 34px 22px;min-width:400px;box-shadow:0 24px 70px rgba(0,0,0,.45);font-family:var(--sans);}
+.toc-modal-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:16px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px;}
+.toc-modal-h span{font-size:8px;color:var(--faint);letter-spacing:.08em;text-transform:none;font-weight:600;}
+.toc-modal-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;font-size:15px;font-weight:700;color:var(--ink);text-decoration:none;}
+.toc-modal-item b{color:var(--accent);font-weight:800;}
+.toc-modal-item:hover{background:var(--accent-bg);color:var(--accent);}
+.toc-modal-item .rep,.toc-modal-item .live{font-size:8px;color:#fff;border-radius:9px;padding:1px 7px;font-weight:700;}
+.toc-modal-item .rep{background:var(--accent);}
+.toc-modal-item .live{background:var(--gold);}
+@media print{.toc-modal{display:none !important;}}
+@media screen {
+  body{background:#3f3f46;padding:28px 0;}
+  .slide{margin:0 auto 26px;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+}
+/* 이미지 클릭 확대 라이트박스 (클릭: 확대 → 이미지 재클릭: 더 확대) */
+.slide img{cursor:zoom-in;}
+.lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,10,12,.94);padding:24px;}
+.lightbox.open{display:flex;align-items:center;justify-content:center;}
+.lightbox.open.zoomed{display:block;overflow:auto;cursor:zoom-out;}
+.lightbox img{max-width:96vw;max-height:94vh;object-fit:contain;box-shadow:0 12px 60px rgba(0,0,0,.6);border-radius:6px;cursor:zoom-in;}
+.lightbox.zoomed img{max-width:none;max-height:none;width:auto;margin:0 auto;display:block;cursor:zoom-in;border-radius:0;box-shadow:none;}
+.lightbox .lb-hint{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);color:#b0b0b8;font-size:11px;font-family:var(--sans);letter-spacing:.02em;pointer-events:none;}
+.lightbox.zoomed .lb-hint{display:none;}
+.lightbox .lb-close{position:fixed;top:16px;right:26px;color:#fff;font-size:32px;font-weight:300;line-height:1;cursor:pointer;font-family:var(--sans);z-index:2;}
+@media print{.lightbox{display:none !important;}}
+</style>
+</head><body>
+
+<!-- ============ ABA (Arte Book Assistance) ============ -->
+<!-- 01 소개 -->
+<div class="slide" id="p01"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span><span class="pperiod">2026.06.15 – 08.10 · 9주 (Team ARTE)</span></div><div class="pnav"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">소개</span></div><div class="phase-title"><h2 class="kr">소개</h2><span class="en">Overview</span><span class="pstep">01 / 08</span></div></div><div class="body">
+<div class="pov" style="grid-template-columns:1fr 1.05fr;gap:10mm;align-items:start">
+<div>
+<div class="kvb"><div class="kk">프로젝트 주제</div><p class="kr" style="font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.5">사서를 <em>대체하지 않고</em> 사서의 손과 다리가 되는 <em>협동로봇</em></p><p class="kr" style="font-size:13.5px;line-height:1.6;color:var(--sub);margin-top:2.5mm">주행로봇+로봇팔로 <em>서가에서 책을 직접 집어</em> 이송·분류·진열하고, 이용자를 추종해 짐을 옮기는 <em>사서 협동로봇</em>.</p></div>
+<div class="stacklbl" style="margin-top:4mm">사용 기술</div>
+<span class="chip">ROS2 Jazzy</span><span class="chip">Nav2</span><span class="chip">SLAM</span><span class="chip">Qt QML · C++</span><span class="chip">FMS</span>
+</div>
+<div>
+<div class="kvb"><div class="kk">프로젝트 배경</div><ul class="bglist"><li class="kr">사서의 <b>반복 업무</b>(배달·반납·정렬·재고 확인) 과중 — 핵심 업무 집중 필요</li><li class="kr">야간 무인 시간대의 <b>관리·보안 공백</b> — 침입 감지</li><li class="kr">주행·매니퓰레이션·AI를 엮은 <b>서비스형 로봇의 실사용 검증</b> 필요</li></ul></div>
+<div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (Team ARTE)</b> · 본인 <b>팀장</b> · 주 1회 스프린트 운영</div><ul class="roles"><li class="kr"><b>전반 설계 주도</b> — 요구사항·아키텍처·시퀀스·State 다이어그램</li><li class="kr"><b>LiBi GUI</b> — Qt QML + C++ 로봇 터치패널 구현</li><li class="kr"><b>FMS 설계</b> — 배차 · 교통 충돌 협상 알고리즘 (sim)</li><li class="kr"><b>추종</b> — 짐꾼 기능 정의 + 쑈삥끼 추종 파이프라인 연계</li><li class="kr"><b>Jira 관리</b> — 팀장으로 8개 스프린트 이슈 추적</li></ul></div>
+<div class="kvb"><div class="kk">관련 링크</div><p class="kr" style="font-size:9.5px">GitHub <a href="https://github.com/addinedu-roscamp-13th/roscamp-repo-2">roscamp-repo-2</a> · Jira · Confluence (Arte · 78p)</p></div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">01</div></div>
+
+
+<!-- 03 System Architecture -->
+<div class="slide" id="p02"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">System Architecture</span></div><div class="phase-title"><h2 class="kr">시스템 아키텍처</h2><span class="en">Architecture</span><span class="pstep">02 / 08</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:1.1fr 1fr;gap:9mm;align-items:start">
+<div>
+<div class="imgwrap" style="height:118mm"><img src="assets/aba_arch_sw.png" alt="SW 아키텍처"></div>
+<div class="imgcap kr">Software Architecture — 3계층 (Client · Server · Equipment) · HTTP · WS · ROS2(DDS) · TCP/UDP</div>
+</div>
+<div>
+<div class="lbl">데이터 흐름 · 통신</div>
+<ul class="ilist">
+<li class="kr"><b>요청 (HTTP·REST)</b> — 이용자·사서 브라우저 → ABA Web/Server, ABA Server가 작업 생성·로봇 배정 (ABA DB)</li>
+<li class="kr"><b>제어 (ROS2·DDS)</b> — 서버 명령을 받은 Libi 내부 노드가 주행(Drive)·로봇팔(Handy) 제어</li>
+<li class="kr"><b>피드백 (WebSocket)</b> — 진행 중 fsm_state·진행률을 회원 화면에 실시간 push</li>
+<li class="kr"><b>인식 (TCP·UDP)</b> — 카메라 영상 → AI Server 도서 인식(book_detector→classifier)·추종 추론, Libi는 주행에 집중</li>
+</ul>
+<div class="lbl" style="margin-top:4mm">3계층 구성</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:0.85fr 2fr 0.95fr"><div>계층</div><div>구성 요소</div><div>통신</div></div>
+<div class="rtr" style="grid-template-columns:0.85fr 2fr 0.95fr"><div><b>Client</b></div><div>이용자 · 사서 브라우저</div><div>HTTP·WS</div></div>
+<div class="rtr" style="grid-template-columns:0.85fr 2fr 0.95fr"><div><b>Server</b></div><div>ABA Web · ABA Server(+DB) · AI Server</div><div>HTTP·WS</div></div>
+<div class="rtr mine" style="grid-template-columns:0.85fr 2fr 0.95fr"><div><b>Equipment</b> (Libi×N)</div><div>Drive(<b>Libi GUI</b>·주행) · Handy(로봇팔)</div><div>ROS2·TCP/UDP</div></div>
+</div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">02</div></div>
+
+<!-- 04 State Diagram -->
+<div class="slide" id="p03"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">State Diagram</span></div><div class="phase-title"><h2 class="kr">상태 다이어그램</h2><span class="en">State</span><span class="pstep">03 / 08</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:1.2fr 1fr;gap:9mm;align-items:start">
+<div>
+<div class="imgwrap" style="height:118mm"><img src="assets/aba_state.png" alt="ABA State Diagram (FSM)"></div>
+<div class="imgcap kr">FSM — Operation States + Task States, 전이 트리거 표기 (설계 · 본인)</div>
+</div>
+<div>
+<div class="lbl">Operation States (운영)</div>
+<ul class="ilist">
+<li class="kr"><b>CHARGING</b> — 충전, 배터리 ≥80% 시 IDLE</li>
+<li class="kr"><b>IDLE</b> — 대기, 작업·순찰 명령 수신</li>
+<li class="kr"><b>PATROL / SECURITY_PATROL</b> — 정기 · 야간 보안 순찰</li>
+<li class="kr"><b>RETURNING</b> — 복귀, docked 시 충전</li>
+<li class="kr"><b>ERROR</b> — fault · estop 즉시 정지, restart 복구</li>
+</ul>
+<div class="lbl" style="margin-top:3.5mm">Task States (작업)</div>
+<ul class="ilist">
+<li class="kr"><b>GUIDE</b> 길잡이 · <b>TRANSPORT</b> 이송 · <b>SORTING</b> 분류 · <b>FOLLOW</b> 추종(짐꾼)</li>
+</ul>
+<div class="note kr" style="margin-top:3.5mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0;font-size:8.6px">주요 전이 — battery_low(≤15%) · patrol_request(auto/manual) · task_request / task_done · fault·estop → ERROR</div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">03</div></div>
+
+<!-- 05 Sequence Diagram -->
+<div class="slide" id="p04"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Sequence Diagram</span></div><div class="phase-title"><h2 class="kr">시퀀스 다이어그램</h2><span class="en">Sequence</span><span class="pstep">04 / 08</span></div></div><div class="body">
+<div class="twoimg">
+<div><div class="imgwrap" style="height:93mm"><img src="assets/aba_seq_delivery.png" alt="이송 시퀀스"></div><div class="imgcap kr">이송 명령 — 요청·경로계획 → 서가 파지(실패 시 최대 3회) → 배치</div></div>
+<div><div class="imgwrap" style="height:93mm"><img src="assets/aba_seq_sorting.png" alt="분류 시퀀스"></div><div class="imgcap kr">분류 — 수거함 적재(arm swap) → 청구기호 판정 반복 분류</div></div>
+</div>
+<div class="note kr" style="margin-top:3mm;text-align:center;font-size:8.6px;color:var(--faint)">진행 중 fsm_state · 진행률을 회원 화면에 WebSocket 실시간 전송 · AI: book_detector → book_classifier → arm_controller · 설계 · 본인</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">04</div></div>
+
+<!-- 06 진행사항 요약 -->
+<div class="slide" id="p05"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">Progress · 진행 현황</span></div><div class="phase-title"><h2 class="kr">진행사항 — 내가 맡은 기능</h2><span class="en">Progress</span><span class="pstep">05 / 08</span></div></div><div class="body">
+<div class="feat c3" style="gap:5mm">
+<div class="fcard"><div class="fn"><span class="fno">·</span><h4 class="kr">LiBi GUI</h4></div><p class="kr">Qt QML + C++ 로봇 터치패널 — 길잡이·검색·추천·표정·비상정지</p></div>
+<div class="fcard"><div class="fn"><span class="fno">·</span><h4 class="kr">FMS 설계</h4></div><p class="kr">배차(Greedy+Cost)·교통 충돌 협상 알고리즘 설계, sim slotcar plugin</p></div>
+<div class="fcard"><div class="fn"><span class="fno">·</span><h4 class="kr">추종 (짐꾼)</h4></div><p class="kr">추종·재탐색 요구사항 정의, 쑈삥끼 추종 파이프라인 기술조사를 적용 예정</p></div>
+<div class="fcard"><div class="fn"><span class="fno">·</span><h4 class="kr">순찰</h4></div><p class="kr">15분마다 1대가 전체를 1회 순찰, 침입 감지 시 녹화·관리자 알림</p></div>
+<div class="fcard"><div class="fn"><span class="fno">·</span><h4 class="kr">정밀주행</h4></div><p class="kr">Nav2 파라미터·ArUco 마커·Line tracing (담당 인경일), 여유 시 협업 지원</p></div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">05</div></div>
+
+
+<!-- 08 진행 상세: LiBi GUI -->
+<div class="slide" id="p06"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="lab">Progress · LiBi GUI</span></div><div class="phase-title"><h2 class="kr">진행 상세 — LiBi GUI</h2><span class="en">Libi GUI</span><span class="pstep">06 / 08</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:1fr 1fr;gap:9mm;align-items:start">
+<div>
+<div class="imgwrap" style="height:94mm;background:#111"><img src="assets/aba_gui_libi.png" alt="Libi GUI 터치패널"></div>
+<div class="imgcap kr">Libi GUI — 로봇 터치패널(desktop_gui) · 상단바(상태·비상정지·배터리) · 표정 · 길잡이/검색/추천</div>
+</div>
+<div>
+<div class="lbl">구현 — C++ + QML</div>
+<ul class="ilist">
+<li class="kr"><b>QML</b> — 선언형 UI: 상단바 · 표정 애니메이션 · 길잡이/검색/추천 카드 · 상태칩</li>
+<li class="kr"><b>C++</b> — 화면 로직 · 상태 관리 · ROS2 노드 연동 (fsm_state 수신 · 명령 송신)</li>
+<li class="kr"><b>관리자 모드</b> — 로그인 후 목표점 이동 · 에러 현장 수동 조작</li>
+<li class="kr"><b>대기·홈</b> — 인사 · 표정 · 순회 중 표시 · 친밀감 인터랙션</li>
+<li class="kr"><b>안전</b> — 비상정지 · 배터리 · 현재 작업/상태 실시간 표시</li>
+</ul>
+<div class="note kr" style="margin-top:4mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0;font-size:9px">로봇 터치패널 전체를 <b>C++ + QML</b>로 직접 구현 — QML로 화면, C++로 상태·ROS2 통신을 담당</div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">06</div></div>
+
+<!-- 09 진행 상세: FMS -->
+<div class="slide" id="p07"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="lab">Progress · FMS</span></div><div class="phase-title"><h2 class="kr">진행 상세 — FMS (Fleet Management)</h2><span class="en">Fleet Mgmt</span><span class="pstep">07 / 08</span></div></div><div class="body">
+<div class="lbl">배차·교통 알고리즘을 <b style="color:var(--ink)">pluginlib로 런타임 교체</b>하며 Gazebo slotcar sim에서 검증 <span style="color:var(--faint);font-weight:600">· C++ · ROS2</span></div>
+<div class="imgtext" style="grid-template-columns:1fr 1fr;gap:8mm;align-items:start;margin-top:2.5mm">
+<div>
+<div class="lbl" style="font-size:11px;letter-spacing:.1em">배차 · Task Allocation</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>방식</div><div>특징</div><div>채택</div></div>
+<div class="rtr mine" style="grid-template-columns:1fr 1.85fr 0.8fr"><div><b>Greedy + Cost</b></div><div>즉시 최저 cost 로봇에 배정 · 실시간</div><div><b>구현</b></div></div>
+<div class="rtr" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>Hungarian</div><div>N×M 1:1 최적 매칭 (batch)</div><div>등록</div></div>
+<div class="rtr" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>Auction·CBBA</div><div>경매 입찰 · 분산 합의 (확장성↑)</div><div>등록</div></div>
+<div class="rtr" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>MILP·GA/ACO</div><div>전역 최적 · 근사 (대규모)</div><div>등록</div></div>
+</div>
+</div>
+<div>
+<div class="lbl" style="font-size:11px;letter-spacing:.1em">교통관제 · Traffic Control</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>방식</div><div>특징</div><div>채택</div></div>
+<div class="rtr mine" style="grid-template-columns:1fr 1.85fr 0.8fr"><div><b>Edge/Node Lock</b></div><div>노드 mutex · 서버 허가 + FIFO 큐</div><div><b>구현</b></div></div>
+<div class="rtr mine" style="grid-template-columns:1fr 1.85fr 0.8fr"><div><b>우선순위 협상</b></div><div>task 우선순위로 양보 · 데드락 해소</div><div><b>구현</b></div></div>
+<div class="rtr" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>Dijkstra 예약</div><div>노드+시간창 예약 (DFS 감지 추후)</div><div>부분</div></div>
+<div class="rtr" style="grid-template-columns:1fr 1.85fr 0.8fr"><div>CBS+A*·ORCA</div><div>시공간 사전계획 · 속도벡터</div><div>등록</div></div>
+</div>
+</div>
+</div>
+<div class="note kr" style="margin-top:4mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0;font-size:8.8px"><b>cost = distance + battery + task + patrol + congestion</b> 가중합(설계) · 현재 <b>거리 기반 Greedy + Edge/Node Lock·우선순위 양보</b> 실동작 (task 우선순위: 이송 &gt; 가이드 &gt; returning &gt; 파견) — MRTA·open-rmf 기술조사를 제가 정리·설계</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">07</div></div>
+
+<!-- 10 진행 상세: 추종 -->
+<div class="slide" id="p08"><div class="phd"><div class="top"><span class="plabel">PROJECT</span><span class="ptitle kr">ABA (Arte Book Assistance) — 도서관 사서 협동로봇</span><span class="live">진행중</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="lab">Progress · 추종</span></div><div class="phase-title"><h2 class="kr">진행 상세 — 추종 (짐꾼)</h2><span class="en">Following</span><span class="pstep">08 / 08</span></div></div><div class="body">
+<div class="imgtext" style="grid-template-columns:1fr 1.1fr;gap:9mm;align-items:start">
+<div>
+<div class="lbl">인식 모델 — YOLOv8</div>
+<ul class="ilist">
+<li class="kr"><b>모델</b> — YOLOv8n(nano) · 100 epochs · best = epoch 72</li>
+<li class="kr"><b>데이터</b> — 635장 (pinky_pro 354 + person 281) · 2 클래스</li>
+<li class="kr"><b>파이프라인</b> — 탐지(YOLOv8) → 추적(ByteTracker) → 재식별(ReID+HSV) → 제어(PI/P) <span style="color:var(--faint)">· 쑈삥끼 기반</span></li>
+</ul>
+<div class="note kr" style="margin-top:3.5mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0;font-size:9px">동일 모델을 두 환경에서 실측 — 엣지=<b>NCNN 경량(imgsz 320·threads 4)</b>, 서버=<b>full PyTorch(GPU)</b>, 영상은 <b>UDP</b> 전송</div>
+</div>
+<div>
+<div class="lbl">실측 — 온디바이스(Pi4) vs AI 서버</div>
+<div class="rtbl">
+<div class="rtr rth" style="grid-template-columns:1.15fr 1fr 1fr"><div>지표</div><div>온디바이스<br>(Pi4 CPU)</div><div>AI 서버<br>(GPU·UDP)</div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>FPS</b></div><div>4.96</div><div><b>19.09</b></div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>e2e 지연 평균</b></div><div>182 ms</div><div><b>21.0 ms</b></div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>지연 p95</b></div><div>274 ms</div><div><b>23.6 ms</b></div></div>
+<div class="rtr mine" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>Pi CPU 사용률</b></div><div>85.3%</div><div><b>30.4%</b></div></div>
+<div class="rtr" style="grid-template-columns:1.15fr 1fr 1fr"><div><b>Pi 온도</b></div><div>62.7 ℃</div><div>54.3 ℃</div></div>
+</div>
+<div class="note kr" style="margin-top:3.5mm;background:var(--accent-bg);border-left:2px solid var(--accent);padding:3.5mm 4.5mm;border-radius:0 8px 8px 0"><b style="color:var(--accent)">결정</b> — 온디바이스는 <b>Pi CPU 85% 포화</b>로 자율주행 <b>Nav2와 자원 경합</b> → 추론을 <b>AI 서버로 offload</b>해 <b>FPS 4배 · 지연 1/9 · CPU 여유</b> 확보</div>
+</div>
+</div>
+</div><div class="pgname">Portfolio · 이강택</div><div class="pg">08</div></div>
+
+<!-- 이미지 확대 라이트박스 (클릭 확대 → 이미지 재클릭 시 더 확대) -->
+<div class="lightbox" id="lightbox"><span class="lb-close">×</span><img id="lightbox-img" src="" alt="확대 이미지"><span class="lb-hint">이미지를 클릭할수록 더 확대 (최대 4단계) · Esc · 배경 클릭 닫기</span></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'), lbi=document.getElementById('lightbox-img'),
+      cls=lb.querySelector('.lb-close');
+  var HEIGHTS=[0,130,200,290,400], lvl=0;
+  function apply(){
+    if(lvl===0){ lb.classList.remove('zoomed'); lbi.style.height=''; lb.scrollTo(0,0); }
+    else { lb.classList.add('zoomed'); lbi.style.height=HEIGHTS[lvl]+'vh'; }
+  }
+  function open(src){ lbi.src=src; lvl=0; apply(); lb.classList.add('open'); }
+  function close(){ lb.classList.remove('open','zoomed'); lvl=0; lbi.style.height=''; lbi.removeAttribute('src'); }
+  document.querySelectorAll('.slide img').forEach(function(img){
+    img.addEventListener('click',function(){ open(this.src); });
+  });
+  lbi.addEventListener('click',function(e){ e.stopPropagation(); lvl=(lvl+1)%HEIGHTS.length; apply(); });
+  cls.addEventListener('click',function(e){ e.stopPropagation(); close(); });
+  lb.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+</body></html>

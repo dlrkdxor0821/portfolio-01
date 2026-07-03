@@ -1,0 +1,301 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{
+  --sans:'Noto Sans CJK KR','Noto Sans KR',sans-serif;
+  --serif:'Noto Serif CJK KR',serif;
+  --mono:'D2Coding','Consolas','Menlo',monospace;
+  --ink:#18181B; --sub:#52525B; --faint:#8A8A93;
+  --line:#E4E4E7; --line2:#F1F1F3;
+  --accent:#0E7C6B; --accent-bg:#ECF6F3;
+  --gold:#B8860B;
+  --bg:#FFFFFF; --panel:#FAFAFA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@page{size:A4 landscape;margin:0;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--accent);}
+.slide{width:297mm;height:210mm;position:relative;overflow:hidden;background:var(--bg);
+  page-break-after:always;display:flex;flex-direction:column;padding:20mm 24mm;}
+.slide:last-child{page-break-after:auto;}
+.kr{word-break:keep-all;}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:5mm;min-height:0;}
+.pgname{position:absolute;bottom:9mm;left:24mm;font-size:8px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;}
+.pg{position:absolute;bottom:9mm;right:24mm;font-size:8.5px;color:var(--faint);letter-spacing:.1em;}
+em{font-style:normal;color:var(--accent);font-weight:700;}
+.lbl{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:3mm;}
+.hd{display:flex;align-items:baseline;gap:13px;border-bottom:1px solid var(--line);padding-bottom:4mm;margin-bottom:6mm;}
+.hd .no{font-size:12px;font-weight:700;color:var(--accent);}
+.hd h2{font-size:21px;font-weight:800;}
+.hd .sub{margin-left:auto;font-size:9.5px;color:var(--faint);}
+/* project header */
+.phd{margin-bottom:5mm;}
+.phd .top{display:flex;align-items:baseline;gap:10px;}
+.phd .plabel{font-size:9px;font-weight:800;color:var(--accent);letter-spacing:.12em;white-space:nowrap;}
+.phd .ptitle{font-size:16px;font-weight:800;}
+.phd .repbadge{font-size:7.6px;color:#fff;background:var(--accent);border-radius:9px;padding:2px 8px;font-weight:700;align-self:center;white-space:nowrap;}
+.phd .live{font-size:7.6px;color:#fff;background:var(--gold);border-radius:9px;padding:2px 8px;font-weight:700;align-self:center;white-space:nowrap;}
+.phd .pperiod{margin-left:auto;font-size:9px;color:var(--faint);white-space:nowrap;}
+.pnav{display:flex;align-items:center;gap:5px;margin-top:4mm;}
+.pnav .dot{width:7px;height:7px;border-radius:50%;background:var(--line);}
+.pnav .dot.on{background:var(--accent);width:22px;border-radius:4px;}
+.pnav .lab{font-size:8px;color:var(--faint);margin-left:7px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
+.phase-title{display:flex;align-items:baseline;gap:11px;border-top:1px solid var(--ink);padding-top:4mm;margin-top:4mm;}
+.phase-title h2{font-size:20px;font-weight:800;}
+.phase-title .en{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;}
+.phase-title .pstep{margin-left:auto;font-size:9px;font-weight:800;color:var(--faint);letter-spacing:.08em;}
+.phase-desc{font-size:14px;color:var(--sub);margin-top:2mm;}
+.flag{font-size:8px;color:var(--faint);border:1px dashed var(--line);border-radius:6px;padding:2px 8px;margin-left:8px;align-self:center;}
+/* cover */
+.cv{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.cv .doc{font-size:9px;letter-spacing:.5em;color:var(--accent);font-weight:700;text-transform:uppercase;}
+.cv h1{font-size:60px;font-weight:800;margin-top:14px;line-height:1;}
+.cv h1 small{display:block;font-size:12px;letter-spacing:.5em;color:var(--faint);font-weight:600;margin-top:14px;}
+.cv .role{margin-top:22px;font-size:15px;color:var(--sub);font-weight:600;}
+.cv .tag{margin-top:12px;font-size:12.5px;color:var(--accent);font-style:italic;line-height:1.6;}
+.cv .ct{margin-top:26px;display:flex;justify-content:center;gap:24px;font-size:10px;color:var(--sub);}
+.cv .ct b{color:var(--faint);font-weight:700;margin-right:5px;}
+/* toc */
+.tocrow{display:flex;align-items:baseline;border-bottom:1px solid var(--line2);padding:5.5mm 0;}
+.tocrow:last-child{border-bottom:none;}
+.tocrow .tno{font-size:15px;font-weight:800;color:var(--accent);width:36px;}
+.tocrow .tt{font-size:13.5px;font-weight:700;}
+.tocrow .rep{font-size:7.2px;color:#fff;background:var(--accent);border-radius:9px;padding:1px 7px;margin-left:8px;font-weight:700;}
+.tocrow .live{font-size:7.2px;color:#fff;background:var(--gold);border-radius:9px;padding:1px 7px;margin-left:6px;font-weight:700;}
+.tocrow .td{margin-left:12px;font-size:9px;color:var(--faint);}
+.tocrow .tp{margin-left:auto;font-size:12px;color:var(--faint);font-weight:700;}
+.toc-intro{font-size:10.5px;color:var(--sub);line-height:1.6;margin-bottom:4mm;}
+.toc-intro b{color:var(--accent);font-weight:700;}
+/* overview */
+.ov-thesis{font-size:10.5px;color:var(--sub);line-height:1.6;text-align:center;max-width:205mm;margin:0 auto 8mm;}
+.ov-thesis em{color:var(--accent);font-weight:700;}
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8mm;}
+.ov-card{border:1px solid var(--line);border-radius:12px;padding:7mm 6.5mm;display:flex;flex-direction:column;min-height:98mm;}
+.ov-top{display:flex;align-items:center;gap:8px;}
+.ov-name{font-size:19px;font-weight:800;}
+.ov-top .live,.ov-top .rep{white-space:nowrap;}
+.ov-sub{font-size:11.5px;color:var(--sub);margin-top:2.5mm;}
+.ov-meta{font-size:9.5px;color:var(--faint);margin-top:5mm;padding-top:4mm;border-top:1px solid var(--line2);}
+.ov-role{font-size:10.5px;color:var(--ink);margin-top:3.5mm;line-height:1.55;}
+.ov-role b{color:var(--accent);font-weight:700;margin-right:5px;}
+.ov-line{font-size:10.5px;color:var(--sub);line-height:1.65;margin-top:4mm;flex:1;}
+.ov-tags{margin-top:4.5mm;}
+.ov-page{font-size:9.5px;color:var(--accent);font-weight:700;margin-top:5mm;text-align:right;}
+/* profile */
+.prof{display:grid;grid-template-columns:42mm 1fr 1.05fr;gap:11mm;align-items:start;}
+.photo{aspect-ratio:3.5/4.5;border-radius:8px;overflow:hidden;line-height:0;color:var(--faint);border:1px solid var(--line);margin-bottom:8mm;}
+.pc{font-size:9.8px;color:var(--sub);margin-bottom:5px;}
+.pc:first-of-type{margin-top:9mm;}
+.pc b{color:var(--faint);font-weight:700;margin-right:6px;}
+.summary{font-size:11px;line-height:1.85;color:var(--sub);}
+.summary em{color:var(--ink);}
+.str .it{padding:2.4mm 0;border-top:1px solid var(--line2);}
+.str .it:first-child{border-top:none;}
+.str h4{font-size:11.5px;font-weight:700;}
+.str h4::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;}
+.str p{font-size:9.9px;color:var(--sub);padding-left:14px;margin-top:1.5px;}
+.skcat{font-size:9.2px;font-weight:700;color:var(--sub);margin:3mm 0 1.8mm;}
+.skcat:first-child{margin-top:0;}
+.skrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.skrow .n{font-size:9px;}
+.bar{display:inline-block;width:74px;height:5px;border-radius:3px;background:var(--line);position:relative;vertical-align:middle;}
+.bar i{position:absolute;left:0;top:0;height:5px;border-radius:3px;background:var(--accent);}
+/* placeholder + chips */
+.ph{border:1.6px dashed var(--line);border-radius:12px;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--faint);gap:7px;}
+.ph .pl{font-size:11px;font-weight:700;color:var(--sub);}
+.ph .ps{font-size:8.6px;color:var(--faint);}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:16px;padding:4px 10px;font-size:10px;margin:0 4px 4.5px 0;color:var(--ink);}
+.stacklbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:0 0 3mm;}
+.rtbl{border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:4.5mm 0 1mm;}
+.rtr{display:grid;grid-template-columns:0.72fr 1.35fr 2fr;border-top:1px solid var(--line2);}
+.rtr:first-child{border-top:none;}
+.rtr.rth>div{font-weight:800;color:var(--accent);font-size:8.6px;letter-spacing:.06em;text-transform:uppercase;padding:2mm 3.5mm;background:var(--accent-bg);}
+.rtr>div{padding:3.4mm 4mm;font-size:12.5px;color:var(--sub);line-height:1.4;border-left:1px solid var(--line2);}
+.rtr>div:first-child{border-left:none;}
+.rtr b{color:var(--ink);font-weight:700;}
+.rtr.mine>div{background:#F2FBF8;}
+.rtr.mine b{color:var(--accent);}
+.bglist{list-style:none;margin-top:1mm;}
+.bglist li{font-size:12px;color:var(--sub);line-height:1.5;padding-left:15px;position:relative;margin-bottom:3.5mm;}
+.bglist li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.bglist li b{color:var(--ink);font-weight:700;}
+#p05 .kk{font-size:11px;}
+#p05 .teamline{font-size:13.5px;}
+#p05 .roles li{font-size:13.5px;margin-bottom:3.2mm;}
+#p05 .bglist li{font-size:13.5px;}
+.btpat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4mm 5mm;font-family:var(--mono);font-size:10px;line-height:1.75;white-space:pre;color:var(--sub);overflow:auto;}
+.btpat b{color:var(--accent);font-weight:700;}
+/* overview */
+.pov{display:grid;grid-template-columns:1.05fr 1.25fr;gap:11mm;align-items:center;}
+.kvb{margin-bottom:6mm;}
+.kvb .kk{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:2mm;}
+.kvb p{font-size:16.5px;color:var(--sub);line-height:1.6;}
+.kvb .goal{font-size:16.5px;color:var(--ink);font-weight:600;line-height:1.5;}
+.roles{list-style:none;}
+.roles li{font-size:15px;color:var(--ink);padding-left:16px;position:relative;margin-bottom:3mm;}
+.roles li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:2px;background:var(--accent);}
+.teamline{font-size:14px;color:var(--faint);margin-bottom:3.5mm;}
+.teamline b{color:var(--ink);font-weight:700;}
+/* features */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:7mm;}
+.feat.c3{grid-template-columns:1fr 1fr 1fr;}
+.fcard{border:1px solid var(--line);border-radius:12px;padding:6.5mm 6mm;}
+.fcard .fn{display:flex;align-items:baseline;gap:9px;}
+.fcard .fno{font-size:14px;font-weight:900;color:var(--accent);line-height:1;}
+.fcard h4{font-size:17px;font-weight:800;}
+.fcard p{font-size:15px;color:var(--sub);line-height:1.55;margin-top:2.2mm;padding-left:22px;}
+.frole{margin-top:4.5mm;font-size:13.5px;color:var(--faint);}
+.frole b{color:var(--accent);font-weight:700;margin-right:6px;}
+/* problem solving */
+.ps{display:grid;grid-template-columns:1fr 1.12fr;gap:11mm;align-items:start;}
+.blk{margin-bottom:7mm;}
+.blk p{font-size:16px;color:var(--sub);line-height:1.65;}
+.blk p.def{color:var(--ink);font-weight:600;}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6mm;}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6.5mm;}
+.metric .mv{font-size:26px;font-weight:800;color:var(--accent);line-height:1.1;}
+.metric .mc{font-size:13px;color:var(--sub);margin-top:5px;}
+.trade{border:1px solid var(--accent);border-radius:10px;overflow:hidden;margin-top:2.5mm;}
+.trade .tb{display:grid;grid-template-columns:1fr 1fr;}
+.trade .tc{padding:3mm 4mm;}
+.trade .tc:first-child{border-right:1px solid var(--line);}
+.trade .cl{font-size:11px;font-weight:800;letter-spacing:.05em;margin-bottom:1.5mm;}
+.trade .get .cl{color:var(--accent);}
+.trade .give .cl{color:var(--faint);}
+.trade p{font-size:13.5px;color:var(--sub);line-height:1.5;}
+/* retro */
+.retro{display:grid;grid-template-columns:1fr 1fr;gap:18mm 12mm;}
+.rc{padding-top:5mm;border-top:2px solid var(--accent);}
+.rc h4{font-size:17px;font-weight:800;}
+.rc p{font-size:15.5px;color:var(--sub);line-height:1.65;margin-top:2.2mm;}
+/* closing */
+.closing{display:flex;flex-direction:column;justify-content:center;height:100%;}
+.cl-lead{font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);font-weight:700;text-align:center;}
+.cl-q{font-size:26px;font-weight:800;text-align:center;margin-top:7mm;line-height:1.5;}
+.cl-q em{color:var(--accent);}
+.cl-cap{display:grid;grid-template-columns:repeat(3,1fr);gap:12mm;margin-top:15mm;padding-top:9mm;border-top:1px solid var(--line);}
+.cl-cap .c .k{font-size:9.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:3mm;}
+.cl-cap .c p{font-size:11px;color:var(--sub);line-height:1.72;}
+.cl-name{text-align:center;margin-top:8mm;}
+.cl-name .nm{font-size:34px;font-weight:800;}
+.cl-name .info{font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin-top:7px;}
+.cl-hero{font-size:25px;font-weight:800;text-align:center;line-height:1.55;letter-spacing:-.01em;margin-top:7mm;}
+.cl-hero em{color:var(--accent);}
+.cl-role{text-align:center;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-top:12mm;}
+.cl-give{margin-top:12mm;padding-top:8mm;border-top:1px solid var(--line);}
+.cl-give-h{text-align:center;font-size:9.2px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5mm;}
+.cl-give-list{list-style:none;max-width:100mm;margin:0 auto;}
+.cl-give-list li{font-size:11px;color:var(--sub);padding-left:18px;position:relative;line-height:1.5;margin-bottom:3.6mm;}
+.cl-give-list li:last-child{margin-bottom:0;}
+.cl-give-list li::before{content:"";position:absolute;left:0;top:5px;width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.cl-give-list li b{color:var(--ink);font-weight:700;}
+.cl-nm2{text-align:center;font-size:30px;font-weight:800;margin-top:5mm;}
+.cl-contact{text-align:center;font-size:9.5px;color:var(--faint);letter-spacing:.06em;margin-top:13mm;}
+</style>
+<style>
+/* ===== image / diagram slides ===== */
+.imgwrap{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:4mm;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.imgwrap img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+.imgcap{font-size:12px;color:var(--faint);text-align:center;margin-top:2mm;letter-spacing:.05em;}
+.twoimg{display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:stretch;}
+.imgtext{display:grid;grid-template-columns:1.35fr 1fr;gap:11mm;align-items:start;}
+.note{font-size:15px;color:var(--sub);line-height:1.6;}
+.note b{color:var(--accent);}
+.ilist{list-style:none;margin-top:2mm;}
+.ilist li{font-size:15px;color:var(--sub);padding-left:15px;position:relative;margin-bottom:2.6mm;line-height:1.5;}
+.ilist li::before{content:"";position:absolute;left:0;top:5px;width:6px;height:6px;border-radius:2px;background:var(--accent);}
+.ilist li b{color:var(--ink);font-weight:700;}
+/* folder / code block */
+.folder{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5mm 6mm;font-family:var(--mono);font-size:11.5px;line-height:1.85;white-space:pre;color:var(--sub);overflow:auto;}
+.folder b{color:var(--accent);font-weight:700;}
+.folder u{color:var(--gold);text-decoration:none;font-weight:700;}
+.folder s{color:var(--faint);text-decoration:none;}
+/* jira sprint mini board */
+.jira{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;}
+.spcol{border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+.spcol .sph{background:var(--accent-bg);padding:2.4mm 4mm;font-size:8.6px;font-weight:800;color:var(--accent);display:flex;justify-content:space-between;align-items:center;}
+.spcol .sph .stt{font-size:7px;font-weight:700;color:var(--faint);}
+.spcol .spb{padding:2.6mm 4mm 3mm;}
+.iss{font-size:8px;padding:1.5mm 0;border-top:1px solid var(--line2);display:flex;gap:5px;align-items:baseline;}
+.iss:first-child{border-top:none;}
+.iss .k{font-family:var(--mono);font-size:7px;color:var(--faint);white-space:nowrap;}
+.iss .t{color:var(--sub);line-height:1.3;}
+.iss.mine .t{color:var(--ink);font-weight:700;}
+.iss.mine .k{color:var(--accent);}
+.chipcloud .cc{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:2.5px 8px;font-size:8px;margin:0 4px 4px 0;color:var(--sub);}
+.chipcloud .cc.hi{border-color:var(--accent);color:var(--accent);font-weight:700;}
+.statrow{display:flex;gap:5mm;margin-bottom:4mm;}
+.statbox{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3.4mm 4mm;text-align:center;}
+.statbox .sv{font-size:24px;font-weight:800;color:var(--accent);line-height:1;}
+.statbox .sl{font-size:12.5px;color:var(--sub);margin-top:4px;}
+.skb{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:9.4px;margin:0 4.5px 5px 0;color:var(--sub);}
+.skset{margin-bottom:1mm;}
+.growth{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm;}
+.gstep{border-top:2px solid var(--line);padding-top:2.4mm;}
+.gstep.rep{border-top-color:var(--accent);}
+.gstep.live{border-top-color:var(--gold);}
+.gstep .gn{font-size:8.2px;font-weight:800;color:var(--accent);letter-spacing:.05em;}
+.gstep.live .gn{color:var(--gold);}
+.gstep h5{font-size:8.7px;font-weight:800;margin-top:1.4mm;}
+.gstep p{font-size:7.8px;color:var(--sub);line-height:1.42;margin-top:1.4mm;}
+.toc-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(24,24,27,.55);align-items:center;justify-content:center;}
+.toc-modal.open{display:flex;}
+.toc-modal-box{background:#fff;border-radius:16px;padding:30px 34px 22px;min-width:400px;box-shadow:0 24px 70px rgba(0,0,0,.45);font-family:var(--sans);}
+.toc-modal-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:16px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px;}
+.toc-modal-h span{font-size:8px;color:var(--faint);letter-spacing:.08em;text-transform:none;font-weight:600;}
+.toc-modal-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;font-size:15px;font-weight:700;color:var(--ink);text-decoration:none;}
+.toc-modal-item b{color:var(--accent);font-weight:800;}
+.toc-modal-item:hover{background:var(--accent-bg);color:var(--accent);}
+.toc-modal-item .rep,.toc-modal-item .live{font-size:8px;color:#fff;border-radius:9px;padding:1px 7px;font-weight:700;}
+.toc-modal-item .rep{background:var(--accent);}
+.toc-modal-item .live{background:var(--gold);}
+@media print{.toc-modal{display:none !important;}}
+@media screen {
+  body{background:#3f3f46;padding:28px 0;}
+  .slide{margin:0 auto 26px;box-shadow:0 8px 30px rgba(0,0,0,.35);}
+}
+</style>
+</head><body>
+
+<!-- ============ 쑈삥끼 (독립본 · 6p 구조) ============ -->
+<!-- 01 소개 -->
+<div class="slide" id="p01"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span><span class="pperiod">2026.03.30 – 04.26 · 약 4주</span></div><div class="pnav"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">소개</span></div><div class="phase-title"><h2 class="kr">소개</h2><span class="en">Overview</span><span class="pstep">01 / 06</span></div></div><div class="body"><div class="pov" style="grid-template-columns:1.15fr 1fr"><div><div class="kvb"><div class="kk">프로젝트 주제</div><p class="kr" style="font-size:15px;line-height:1.6">Pinky Pro 로봇 기반 <em>미니어처 마트 스마트 쇼핑 카트</em> 시스템. 고객(데모=인형)을 인식·추종하며 상품 검색·안내·결제·충전소 복귀까지 자동 처리하는 자율주행 <b>다중 로봇(Fleet)</b> 데모.</p><div class="kr" style="font-size:9.5px;color:var(--faint);margin-top:2.5mm">에드인에듀 자율주행 2팀 · 188×141cm 매장 · 로봇 2대(#54 · #18) 동시 운용</div></div><div class="kvb"><div class="kk">배경</div><ul class="ilist" style="margin-top:1.5mm"><li class="kr" style="font-size:12.5px">마트 쇼핑의 불편 — 무거운 카트를 직접 끌고, 상품 위치를 몰라 헤매는 문제</li><li class="kr" style="font-size:12.5px">실내 자율주행 + 사람 추종 + 다중 로봇 조정 난제를 <b>저비용 소형 플랫폼(Pinky Pro + Pi 5)</b>으로 구현 가능성 검증</li><li class="kr" style="font-size:12.5px">Open-RMF 없이 <b>자체 그래프 라우팅 + 레인 예약</b>으로 다중 로봇 경로 충돌 해결을 기술 도전 과제로 설정</li></ul></div></div><div><div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (삥끼랩)</b> · 커밋 71/417</div><ul class="roles"><li class="kr">로봇/서버 <b>상태 조정(state coordination)</b> 전담</li><li class="kr">대기·잠금·복귀 상태 전환 + 세션 생명주기</li><li class="kr">DB 스키마 + pgvector 상품 임베딩 시딩</li><li class="kr">pre-commit 회귀 테스트 게이트 (인증·세션)</li></ul></div><div class="kvb"><div class="stacklbl">사용 기술</div><span class="chip">ROS2 Jazzy</span><span class="chip">Nav2</span><span class="chip">YOLO11n-seg</span><span class="chip">ReID(OSNet) · HSV</span><span class="chip">py_trees BT</span><span class="chip">NCNN · Pi 5</span><span class="chip">PyQt5</span></div><div class="kvb"><div class="kk">관련 링크</div><p class="kr" style="font-size:9px">GitHub <a href="https://github.com/addinedu-physicalai-1st/ros-repo-2">ros-repo-2</a> · 발표자료 <a href="https://shoppinkki-presentation.netlify.app">netlify</a></p></div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">01</div></div>
+
+<!-- 02 System Architecture -->
+<div class="slide" id="p02"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">System Architecture</span></div><div class="phase-title"><h2 class="kr">시스템 아키텍처</h2><span class="en">Architecture</span><span class="pstep">02 / 06</span></div></div><div class="body"><div class="imgtext"><div><div class="imgwrap" style="height:104mm"><img src="assets/shop_arch.png" alt="쑈삥끼 시스템 아키텍처"></div></div><div><div class="lbl">구성 개요</div><ul class="ilist"><li class="kr"><b>브라우저</b> ─SocketIO→ <b>customer_web</b> ─TCP/REST→ <b>control_service</b></li><li class="kr"><b>control_service</b> ─ROS→ Pinky #54/#18 (SM+BT+Nav2+Perception)</li><li class="kr"><b>ai_service</b> : LLM(:8000) → customer_web · <b>YOLO 추론은 Pi 로컬(NCNN)</b> (:5005 서버는 fallback)</li><li class="kr">모든 상태·세션·nav 그래프는 <b>PostgreSQL 17 + pgvector</b>에 통합</li><li class="kr"><b>admin_ui(PyQt5)</b> 관제 + <b>fleet_router</b>로 2대 조정</li></ul><div class="note kr" style="margin-top:4mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0">제 담당은 <b>control_service·상태머신·손님/관제 앱</b> — 서비스의 상태·세션 무결성 계층입니다. (추종 비전은 팀원 담당)</div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">02</div></div>
+
+<!-- 03 State Diagram -->
+<div class="slide" id="p03"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="lab">State Diagram</span></div><div class="phase-title"><h2 class="kr">상태 다이어그램</h2><span class="en">State Diagram</span><span class="pstep">03 / 06</span></div></div><div class="body"><div class="imgtext" style="grid-template-columns:1.5fr 1fr"><div><div class="imgwrap" style="height:114mm"><img src="assets/shop_state.png" alt="상태 다이어그램"></div></div><div><div class="lbl">상태 흐름 (10 states)</div><ul class="ilist"><li class="kr">로그인 → <b>추종</b> → 안내 → 장바구니 → <b>대기</b> → 결제 → <b>복귀</b></li><li class="kr">제가 설계한 핵심 전환 — <b>대기(WAITING)</b> 300초 자동 복귀</li><li class="kr"><b>잠금(LOCKED)</b> : 미결제 시 진입, 스태프 해제 전 세션 종료 차단</li><li class="kr"><b>복귀(RETURN)</b> : 세션 종료 후 도킹 스테이션 자동 복귀</li></ul><div class="note kr" style="margin-top:4mm;background:var(--panel);border-left:2px solid var(--accent);padding:3mm 4mm;border-radius:0 8px 8px 0">상태 <b>진입 조건·멱등성</b>을 규칙으로 명세해 상태머신 무결성을 확보했습니다.</div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">03</div></div>
+
+<!-- 04 내가 한 것 -->
+<div class="slide" id="p04"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="lab">What I Did</span></div><div class="phase-title"><h2 class="kr">내가 한 것</h2><span class="en">What I Did</span><span class="pstep">04 / 06</span></div></div><div class="body"><div class="feat"><div class="fcard"><div class="fn"><span class="fno">01</span><h4 class="kr">상태전이 관련 로직</h4></div><p class="kr">10개 상태의 <b>WAITING·LOCKED·RETURNING</b> 전환 설계 (LOCKED은 WAITING에서만 진입해 무결성 확보). 대기 300초 config 중앙화 · BoundaryMonitor로 결제구역 진입 감지 · 세션 생명주기(멱등성·만료 자동정리)까지 상태·세션 무결성 전담.</p><div style="font-family:var(--mono);font-size:8.5px;color:var(--faint);margin-top:2.5mm;padding-left:22px;line-height:1.4">state_machine.py · bt_runner.py · rest_api.py</div></div><div class="fcard"><div class="fn"><span class="fno">02</span><h4 class="kr">QR 결제 앱 전반 기능</h4></div><p class="kr">customer_web(Flask·SocketIO) 손님 앱 전반 — <b>QR 상품 스캔·장바구니</b> 실시간 동기화, <b>QR 결제 흐름</b>, 대기 카운트다운·자동 복귀 UI 연동.</p><div style="font-family:var(--mono);font-size:8.5px;color:var(--faint);margin-top:2.5mm;padding-left:22px;line-height:1.4">customer_web · static/js/socket.js</div></div><div class="fcard"><div class="fn"><span class="fno">03</span><h4 class="kr">관제 앱 기능 — 구현 편의</h4></div><p class="kr">admin_ui(PyQt5)에 개발·디버깅 편의 기능 추가 — 로봇 <b>위치보정</b>을 시뮬(Gazebo teleport)/실물(AMCL) <b>단일 명령으로 통합</b>, teleport bridge로 시뮬↔실물 동일 조작.</p><div style="font-family:var(--mono);font-size:8.5px;color:var(--faint);margin-top:2.5mm;padding-left:22px;line-height:1.4">admin_ui/robot_card.py · robot_manager.py</div></div><div class="fcard"><div class="fn"><span class="fno">04</span><h4 class="kr">추종 (기여도 30%)</h4></div><p class="kr">팀 추종 파이프라인 기여 — <b>YOLO11n-seg</b> 검출 · <b>ReID/HSV</b> 주인 식별 · <b>P 추종제어</b>(PID 구조로 구현 후 P 게인만 사용).</p></div></div><div class="frole kr"><b>그 외 기여</b>pgvector 상품 임베딩 시딩 · pre-commit 회귀 게이트 22케이스</div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">04</div></div>
+
+<!-- 05 문제해결 -->
+<div class="slide" id="p05"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="lab">Problem Solving</span></div><div class="phase-title"><h2 class="kr">문제 해결</h2><span class="en">Problem Solving</span><span class="pstep">05 / 06</span></div></div><div class="body"><div class="ps"><div><div class="lbl">① 내 주력 — 상태 무결성 · 이탈 차단</div><div class="blk"><div class="stacklbl">문제 정의</div><p class="def kr">미결제 고객이 결제구역을 지나 출구로 이탈할 수 있는 구조적 허점. 상태만으로 막으면 추종 로직과 결합도가 높아집니다.</p></div><div class="blk"><div class="stacklbl">해결 접근</div><p class="kr">상태(SM)와 통행제어(Nav2)를 <em>분리</em> — BoundaryMonitor + 결제 predicate로 <em>Keepout Filter 동적 on/off</em>. 세션 꼬임은 하드닝 + pre-commit 게이트로 차단.</p></div><div class="metrics"><div class="metric"><div class="mv">22 케이스</div><div class="mc kr">세션/로그인 회귀 테스트</div></div><div class="metric"><div class="mv">이탈 차단</div><div class="mc kr">미결제 출구 통과 차단</div></div></div></div><div><div class="lbl">② 추종 협업 — 주인 식별(ReID+HSV)</div><div class="blk"><div class="stacklbl">문제 정의</div><p class="def kr">여러 인형 중 <b>주인 인형만</b> 골라 추종해야 하는데 ReID 특징벡터 단독은 유사 인형을 <b>오인식</b>. Pi 5 CPU로 무거운 CNN 상시 구동도 부담.</p></div><div class="blk"><div class="stacklbl">해결 접근</div><p class="kr">ReID 코사인 <em>AND</em> HSV 색 분포(Pearson 상관계수)의 <em>AND 게이트</em>(reid≥0.48 · hsv≥0.38) + track_id <b>5프레임 락</b>으로 안정화. Pi 5 제약엔 <em>torch 미설치 시 6-float 색상통계 fallback</em> 설계로 엣지 대응.</p></div><div class="note kr" style="background:var(--panel);border-left:2px solid var(--gold);padding:3mm 4mm;border-radius:0 8px 8px 0"><span class="flag">팀 협업(약 20%) — 내 기여 범위 확인 필요</span></div></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">05</div></div>
+
+<!-- 06 회고 -->
+<div class="slide" id="p06"><div class="phd"><div class="top"><span class="plabel">PROJECT · 쑈삥끼</span><span class="ptitle kr">쑈삥끼 — 로봇 스마트 쇼핑카트</span></div><div class="pnav"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="lab">Retrospective</span></div><div class="phase-title"><h2 class="kr">회고</h2><span class="en">Retrospective</span><span class="pstep">06 / 06</span></div></div><div class="body"><div class="retro"><div class="rc"><h4 class="kr">배운 점</h4><p class="kr">상태머신 무결성 설계와 세션 경쟁조건 처리, 그리고 표준 프레임워크가 항상 정답은 아니라는 것 — 규모에 맞는 최소 구현의 가치를 배웠습니다.</p></div><div class="rc"><h4 class="kr">아쉬운 점</h4><p class="kr">CPU·지연·인식 정확도 등 정량 성능 측정을 하지 못해 개선 효과를 수치로 제시하지 못했습니다.</p></div><div class="rc"><h4 class="kr">개선 사항</h4><p class="kr">결제 감지 지연·UI 반영 지연 등 핵심 경로에 측정 로그를 추가하고, fleet_router의 DB 재조회를 최적화하겠습니다.</p></div><div class="rc"><h4 class="kr">다시 한다면</h4><p class="kr">상태 전환 규칙을 처음부터 표로 명세하고, 회귀 테스트를 설계 단계에서 함께 작성하겠습니다.</p></div></div></div><div class="pgname">쑈삥끼 · 이강택</div><div class="pg">06</div></div>
+
+<!-- 이미지 확대 라이트박스 (화면 전용 · 인쇄 시 숨김) -->
+<style>
+.imgwrap img{cursor:zoom-in;}
+.lb-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(24,24,27,.85);align-items:center;justify-content:center;cursor:zoom-out;padding:4vh 4vw;}
+.lb-overlay.open{display:flex;}
+.lb-overlay img{max-width:96vw;max-height:92vh;object-fit:contain;background:#fff;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.6);cursor:zoom-out;}
+.lb-close{position:fixed;top:16px;right:26px;color:#fff;font-size:36px;line-height:1;cursor:pointer;opacity:.85;font-family:var(--sans);}
+.lb-close:hover{opacity:1;}
+@media print{.lb-overlay{display:none!important;}}
+</style>
+<div id="lightbox" class="lb-overlay"><span class="lb-close" id="lbClose">&times;</span><img id="lbImg" src="" alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+  function close(){lb.classList.remove('open');lbImg.removeAttribute('src');}
+  document.querySelectorAll('.imgwrap img').forEach(function(img){
+    img.addEventListener('click',function(){lbImg.src=img.getAttribute('src');lbImg.alt=img.alt||'';lb.classList.add('open');});
+  });
+  lb.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+</body></html>
