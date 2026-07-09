@@ -361,7 +361,7 @@ em{font-style:normal;color:var(--accent);font-weight:700;}
 </div>
 <div>
 <div class="kvb"><div class="kk">프로젝트 배경</div><ul class="bglist"><li class="kr">사서의 <b>반복 업무</b>(배달·반납·정렬·재고 확인) 과중 — 핵심 업무 집중 필요</li><li class="kr">야간 무인 시간대의 <b>관리·보안 공백</b> — 침입 감지</li><li class="kr">주행·매니퓰레이션·AI를 엮은 <b>서비스형 로봇의 실사용 검증</b> 필요</li></ul></div>
-<div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (Team ARTE)</b> · 본인 <b>팀장</b> · 주 1회 스프린트 운영</div><ul class="roles"><li class="kr"><b>전반 설계 주도</b> — 요구사항·아키텍처·시퀀스·State 다이어그램</li><li class="kr"><b>LiBi GUI</b> — Qt QML + C++ 로봇 터치패널 구현(길잡이·검색·추천·표정·비상정지)</li><li class="kr"><b>FMS 설계</b> — 배차(Greedy+Cost)·교통 충돌 협상 알고리즘 (sim slotcar plugin)</li><li class="kr"><b>추종(짐꾼)</b> — 추종·재탐색 요구사항 정의</li><li class="kr"><b>순찰</b> — 15분마다 1대가 전체 순찰, 침입 감지 시 녹화·관리자 알림</li><li class="kr"><b>정밀주행</b> — Nav2 파라미터·ArUco 마커·Line tracing 협업 지원 (담당 인경일)</li><li class="kr"><b>Jira 관리</b> — 팀장으로 8개 스프린트 이슈 추적</li></ul></div>
+<div class="kvb"><div class="kk">팀 구성 · 내가 맡은 부분</div><div class="teamline kr"><b>6인 팀 (Team ARTE)</b> · 본인 <b>팀장</b> · 주 1회 스프린트 운영</div><ul class="roles"><li class="kr"><b>전반 설계 주도</b> — 요구사항·아키텍처·시퀀스·State 다이어그램</li><li class="kr"><b>LiBi GUI</b> — Qt QML + C++ 로봇 터치패널 구현(길잡이·검색·추천·표정·비상정지)</li><li class="kr"><b>FMS 설계</b> — 배차(Auction/SSI)·교통 충돌 협상 알고리즘 (sim slotcar plugin)</li><li class="kr"><b>추종(짐꾼)</b> — 추종·재탐색 요구사항 정의</li><li class="kr"><b>순찰</b> — 15분마다 1대가 전체 순찰, 침입 감지 시 녹화·관리자 알림</li><li class="kr"><b>정밀주행</b> — Nav2 파라미터·ArUco 마커·Line tracing 협업 지원 (담당 인경일)</li><li class="kr"><b>Jira 관리</b> — 팀장으로 8개 스프린트 이슈 추적</li></ul></div>
 <div class="kvb"><div class="kk">관련 링크</div><p class="kr" style="font-size:9.5px">GitHub <a href="https://github.com/addinedu-roscamp-13th/roscamp-repo-2">roscamp-repo-2</a></p></div>
 </div>
 </div>
@@ -436,19 +436,15 @@ em{font-style:normal;color:var(--accent);font-weight:700;}
 <div class="lbl" style="font-size:12.5px;letter-spacing:.1em">배차 · Task Allocation</div>
 <div class="rtbl">
 <div class="rtr rth" style="grid-template-columns:1fr 2.4fr"><div>방식</div><div>특징</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Greedy + Cost</div><div>즉시 최저 cost 로봇에 배정 · 구현 간단 · 실시간성 ↑, 전역 최적은 아님</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Hungarian</div><div>N×M 1:1 최적 매칭(batch) · 전역 최적, batch 주기 지연 존재</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Auction·CBBA</div><div>경매 입찰 · 분산 합의, 로봇 대수 늘어도 확장성 ↑</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>MILP·GA/ACO</div><div>전역 최적·근사 탐색, 대규모 fleet에 적합하나 연산 부담</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Auction · SSI</div><div>각 로봇이 비용(Dijkstra 거리) 입찰 → 최저 비용 낙찰 · 없으면 거절</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>배정 조건</div><div>IDLE 로봇만 · 완주 가능(배터리% ≥ 소비%+15%)만 배정</div></div>
 </div>
 <div class="lbl" style="font-size:12.5px;letter-spacing:.1em;margin-top:3mm">교통 협상</div>
 <div class="rtbl">
 <div class="rtr rth" style="grid-template-columns:1fr 2.4fr"><div>방식</div><div>특징</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Edge/Node Lock</div><div>노드 mutex · 서버 허가 + FIFO 큐로 충돌 원천 차단</div></div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Node Lock</div><div>노드 mutex · 서버 허가 + FIFO 큐로 충돌 원천 차단</div></div>
 <div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>우선순위 협상</div><div>task 우선순위로 한쪽이 양보 · 데드락 해소</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Dijkstra 예약</div><div>노드+시간창 예약, 사이클 감지(DFS)는 추후 구현 예정</div></div>
-<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>CBS+A*·ORCA</div><div>시공간 사전계획 · 속도벡터 기반 회피, 계산량 큼</div></div>
-</div>
+<div class="rtr" style="grid-template-columns:1fr 2.4fr"><div>Dijkstra 예약</div><div>노드+시간창 예약, 사이클 감지(DFS)는 추후 구현 예정</div></div></div>
 </div>
 </div>
 
